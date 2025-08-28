@@ -1,16 +1,14 @@
-
-
 //For large heading
 double large() => 30;
 
 //Main headings
-double primary() => 16;
+double primary() => 18;
 
 //paragraph heading
-double secondary() => 14;
+double secondary() => 16;
 
 //Paragraph body
-double tertiary() => 12;
+double tertiary() => 14;
 
 //Small text
 double small() => 10;
