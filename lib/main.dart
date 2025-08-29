@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
 import 'package:get_storage/get_storage.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:khetihar/splash_setup/language_screen.dart';
@@ -8,6 +9,7 @@ import 'package:khetihar/splash_setup/translations.dart';
 
 import 'SplashScreen/OnBording.dart';
 import 'Theme/AppColors.dart';
+
 
 
 
@@ -55,6 +57,9 @@ class MyApp extends StatelessWidget {
     //return MaterialApp(home: LanguageScreen(),);
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
+
+    
+
       theme: theme,
       translations: AppTranslations(),
       locale: initialLocale,
@@ -65,6 +70,7 @@ class MyApp extends StatelessWidget {
         GetPage(name: LanguageScreen.route, page: () => const LanguageScreen()),
         GetPage(name: '/onboarding', page: () => OnboardingScreen()),
       ],
+
     );
   }
 }
