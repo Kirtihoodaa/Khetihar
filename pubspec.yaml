@@ -36,7 +36,10 @@ dependencies:
   cupertino_icons: ^1.0.8
   google_fonts: ^6.3.1
   get: ^4.7.2
+
   pin_code_fields: ^8.0.1
+
+  get_storage: ^2.1.1
 
 dev_dependencies:
   flutter_test:
@@ -48,6 +51,7 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^5.0.0
+  flutter_native_splash: ^2.4.6
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -64,7 +68,13 @@ flutter:
     - Assets/HomeScreens/
     - Assets/Icons/
   #   - images/a_dot_ham.jpeg
-
+flutter_native_splash:
+  color: "#FFFFFF"                 # must match the start bg of in-app splash
+  image: Assets/HomeScreens/Logo.png
+  android_12:
+    color: "#FFFFFF"
+    image: Assets/HomeScreens/Logo.png
+  web: false
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
 
