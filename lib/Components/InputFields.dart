@@ -348,7 +348,8 @@ class _CustomInputFieldState extends State<CustomInputField> {
             filled: true,
             fillColor: AppColors.grey,
             hintText: widget.labelText,
-            counterText: '', // hide default counter when maxLength used
+            counterText: '',
+            // hide default counter when maxLength used
             contentPadding:
                 (widget.maxLines != null && widget.maxLines! > 1)
                     ? const EdgeInsets.symmetric(horizontal: 16, vertical: 12)
@@ -401,4 +402,112 @@ Widget labelText(String text) {
       ),
     ),
   );
+}
+
+class AppTextField extends StatelessWidget {
+  const AppTextField({
+    super.key,
+    required this.hintText,
+    this.controller,
+    this.prefix,
+    this.suffix,
+    this.keyboardType,
+    this.textInputAction,
+    this.validator,
+    this.onChanged,
+    this.focusNode,
+    this.enabled,
+    this.readOnly = false,
+    this.obscureText = false,
+    this.height, // if set, auto-expands to fill it
+    this.expands = false, // manual expand (when wrapping with SizedBox)
+    this.radius = 14,
+    this.padding, // optional custom padding
+  });
+
+  final String hintText;
+  final TextEditingController? controller;
+  final Widget? prefix;
+  final Widget? suffix;
+  final TextInputType? keyboardType;
+  final TextInputAction? textInputAction;
+  final String? Function(String?)? validator;
+  final ValueChanged<String>? onChanged;
+  final FocusNode? focusNode;
+  final bool? enabled;
+  final bool readOnly;
+  final bool obscureText;
+
+  final double? height;
+  final bool expands;
+  final double radius;
+  final EdgeInsetsGeometry? padding;
+
+  @override
+  Widget build(BuildContext context) {
+    // Auto-expand when a height is provided OR when expands==true
+    final bool _expand = expands || (height != null);
+
+    final field = TextFormField(
+      controller: controller,
+      focusNode: focusNode,
+      enabled: enabled,
+      readOnly: readOnly,
+      obscureText: obscureText,
+      keyboardType: keyboardType,
+      textInputAction: textInputAction,
+      validator: validator,
+      onChanged: onChanged,
+
+      // expansion setup
+      expands: _expand,
+      minLines: _expand ? null : 1,
+      maxLines: _expand ? null : 1,
+
+      // ALWAYS anchor text/hint to the TOP-LEFT
+      textAlignVertical: TextAlignVertical.top,
+
+      style: TextStyle(
+        fontSize: tertiary(), // 14
+        color: Colors.black87,
+        height: 1.3,
+      ),
+      cursorColor: AppColors.green,
+
+      decoration: InputDecoration(
+        hintText: hintText,
+        hintStyle: TextStyle(fontSize: tertiary(), color: Colors.black),
+
+        // keep enough space at the top/left even when not expanded
+        isDense: false,
+        filled: true,
+        fillColor: AppColors.grey,
+        // #F7F8F9
+
+        // default top-left padding; override via `padding` if needed
+        contentPadding: padding ?? const EdgeInsets.fromLTRB(16, 12, 16, 16),
+
+        prefixIcon:
+            prefix == null
+                ? null
+                : Padding(
+                  padding: const EdgeInsets.only(left: 8, right: 4),
+                  child: Center(child: prefix),
+                ),
+        prefixIconConstraints: const BoxConstraints(minWidth: 0, minHeight: 0),
+        suffixIcon: suffix,
+
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(radius),
+          borderSide: const BorderSide(color: AppColors.greyBorder, width: 1),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(radius),
+          borderSide: const BorderSide(color: AppColors.green, width: 1.6),
+        ),
+      ),
+    );
+
+    return height == null ? field : SizedBox(height: height, child: field);
+  }
 }

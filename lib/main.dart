@@ -3,15 +3,14 @@ import 'package:get/get.dart';
 
 import 'package:get_storage/get_storage.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:khetihar/Login%20Registration/book_field_date_time.dart';
+import 'package:khetihar/Login%20Registration/confirm_booking_field_agent.dart';
 import 'package:khetihar/splash_setup/language_screen.dart';
 import 'package:khetihar/splash_setup/splash_screen.dart';
 import 'package:khetihar/splash_setup/translations.dart';
 
 import 'SplashScreen/OnBording.dart';
 import 'Theme/AppColors.dart';
-
-
-
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -42,7 +41,9 @@ class MyApp extends StatelessWidget {
           backgroundColor: AppColors.green,
           foregroundColor: Colors.white,
           minimumSize: const Size.fromHeight(48),
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(28)),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(28),
+          ),
         ),
       ),
       outlinedButtonTheme: OutlinedButtonThemeData(
@@ -50,16 +51,15 @@ class MyApp extends StatelessWidget {
           foregroundColor: AppColors.green,
           side: const BorderSide(color: AppColors.green, width: 1.2),
           minimumSize: const Size.fromHeight(48),
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(28)),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(28),
+          ),
         ),
       ),
     );
-    //return MaterialApp(home: LanguageScreen(),);
+    // return MaterialApp(home: ConfirmBookingFieldAgent());
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-
-    
-
       theme: theme,
       translations: AppTranslations(),
       locale: initialLocale,
@@ -70,7 +70,6 @@ class MyApp extends StatelessWidget {
         GetPage(name: LanguageScreen.route, page: () => const LanguageScreen()),
         GetPage(name: '/onboarding', page: () => OnboardingScreen()),
       ],
-
     );
   }
 }
