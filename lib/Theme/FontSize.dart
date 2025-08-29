@@ -1,5 +1,5 @@
 //For large heading
-double large() => 30;
+double large() => 26;
 
 //Main headings
 double primary() => 18;
