@@ -2,15 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:khetihar/Components/CustomButton.dart';
 import 'package:khetihar/Components/InputFields.dart';
 import 'package:khetihar/Theme/AppColors.dart';
+import 'package:khetihar/Theme/FontSize.dart';
 
-class RegisterScreen extends StatefulWidget {
-  const RegisterScreen({super.key});
+class RegisterScreen extends StatelessWidget {
+  RegisterScreen({super.key});
 
-  @override
-  State<RegisterScreen> createState() => _RegisterScreenState();
-}
-
-class _RegisterScreenState extends State<RegisterScreen> {
   final _formKey = GlobalKey<FormState>();
 
   final TextEditingController nameController = TextEditingController();
@@ -19,7 +15,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   final TextEditingController confirmPasswordController =
       TextEditingController();
 
-  bool acceptTerms = false;
+  final ValueNotifier<bool> acceptTerms = ValueNotifier(false);
 
   @override
   Widget build(BuildContext context) {
@@ -27,30 +23,23 @@ class _RegisterScreenState extends State<RegisterScreen> {
       backgroundColor: Colors.white,
       body: Stack(
         children: [
-          // Rice image background
           Positioned(
             top: 0,
             right: 0,
             child: Image.asset(
               "Assets/HomeScreens/rice.png",
-              height: 200,
+              height: 260,
               fit: BoxFit.contain,
             ),
           ),
 
           SafeArea(
             child: SingleChildScrollView(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 20,
-              ), 
+              padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Form(
                 key: _formKey,
                 child: Column(
                   children: [
-                    const SizedBox(
-                      height: 12,
-                    ),
-             
                     Align(
                       alignment: Alignment.centerLeft,
                       child: Container(
@@ -74,22 +63,21 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       ),
                     ),
 
-                    const SizedBox(height: 10),
+                    const SizedBox(height: 8),
 
-              
                     Column(
                       children: [
                         Image.asset(
                           "Assets/HomeScreens/Logo.png",
-                          height: 70,
-                          width: 70,
+                          height: 65,
+                          width: 65,
                         ),
-                        const SizedBox(height: 15),
-                        const Text(
+                        const SizedBox(height: 8),
+                        Text(
                           "Create Your\nKhetihar Account",
                           textAlign: TextAlign.center,
                           style: TextStyle(
-                            fontSize: 22,
+                            fontSize: large(),
                             fontWeight: FontWeight.bold,
                             color: AppColors.green,
                           ),
@@ -97,18 +85,20 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       ],
                     ),
 
-                    const SizedBox(height: 20),
+                    const SizedBox(height: 10),
 
-           
-                    const Text(
-                      "Join Khetihar to make smarter farming\ndecisions with expert help, anytime.",
+                    Text(
+                      "Join Khetihar to make smarter farming\n"
+                      "decisions with expert help, anytime.",
                       textAlign: TextAlign.center,
-                      style: TextStyle(color: Colors.black87, fontSize: 14),
+                      style: TextStyle(
+                        fontSize: secondary(),
+                        color: Colors.black87,
+                      ),
                     ),
 
-                    const SizedBox(height: 25),
+                    const SizedBox(height: 20),
 
-            
                     CustomInputField(
                       labelText: "Enter your name",
                       controller: nameController,
@@ -135,7 +125,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
                     const SizedBox(height: 12),
 
-               
                     CustomInputField(
                       labelText: "Enter your password",
                       controller: passwordController,
@@ -150,7 +139,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
                     const SizedBox(height: 12),
 
-           
                     CustomInputField(
                       labelText: "Confirm password",
                       controller: confirmPasswordController,
@@ -165,38 +153,42 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
                     const SizedBox(height: 16),
 
-              
-                    Row(
-                      children: [
-                        Checkbox(
-                          value: acceptTerms,
-                          onChanged: (v) {
-                            setState(() => acceptTerms = v ?? false);
-                          },
-                          activeColor: AppColors.green,
-                        ),
-                        const Expanded(
-                          child: Text.rich(
-                            TextSpan(
-                              text: "Terms of Us ",
-                              style: TextStyle(
-                                fontSize: 13,
-                                color: Colors.black87,
-                              ),
-                              children: [
-                                TextSpan(
-                                  text: "and Privacy Policy",
-                                  style: TextStyle(
-                                    fontSize: 13,
-                                    fontWeight: FontWeight.bold,
-                                    color: AppColors.green,
-                                  ),
-                                ),
-                              ],
+                    ValueListenableBuilder(
+                      valueListenable: acceptTerms,
+                      builder: (context, value, _) {
+                        return Row(
+                          children: [
+                            Checkbox(
+                              value: value,
+                              onChanged: (v) {
+                                acceptTerms.value = v ?? false;
+                              },
+                              activeColor: AppColors.green,
                             ),
-                          ),
-                        ),
-                      ],
+                            Expanded(
+                              child: Text.rich(
+                                TextSpan(
+                                  text: "Terms of Use ",
+                                  style: TextStyle(
+                                    fontSize: tertiary(),
+                                    color: Colors.black87,
+                                  ),
+                                  children: [
+                                    TextSpan(
+                                      text: "and Privacy Policy",
+                                      style: TextStyle(
+                                        fontSize: tertiary(),
+                                        fontWeight: FontWeight.bold,
+                                        color: AppColors.green,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ],
+                        );
+                      },
                     ),
 
                     const SizedBox(height: 20),
@@ -205,8 +197,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       text: "Register",
                       expand: true,
                       onPressed: () {
-                        if (_formKey.currentState!.validate() && acceptTerms) {
+                        if (_formKey.currentState!.validate() &&
+                            acceptTerms.value) {
                           debugPrint("Register pressed ✅");
+                        } else {
+                          debugPrint("Validation failed ❌");
                         }
                       },
                     ),
@@ -214,22 +209,24 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     const SizedBox(height: 25),
 
                     Row(
-                      children: const [
-                        Expanded(child: Divider(thickness: 1)),
+                      children: [
+                        const Expanded(child: Divider(thickness: 1)),
                         Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 8),
+                          padding: const EdgeInsets.symmetric(horizontal: 8),
                           child: Text(
                             "Or Register with",
-                            style: TextStyle(color: Colors.black54),
+                            style: TextStyle(
+                              color: Colors.black54,
+                              fontSize: tertiary(),
+                            ),
                           ),
                         ),
-                        Expanded(child: Divider(thickness: 1)),
+                        const Expanded(child: Divider(thickness: 1)),
                       ],
                     ),
 
                     const SizedBox(height: 20),
 
-                    // Social Buttons
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -246,25 +243,27 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        const Text(
+                        Text(
                           "Already have an account? ",
-                          style: TextStyle(fontSize: 14),
+                          style: TextStyle(fontSize: tertiary()),
                         ),
                         GestureDetector(
                           onTap: () {
                             debugPrint("Login clicked");
                           },
-                          child: const Text(
+                          child: Text(
                             "Login Now",
                             style: TextStyle(
                               color: AppColors.green,
                               fontWeight: FontWeight.bold,
-                              fontSize: 14,
+                              fontSize: tertiary(),
                             ),
                           ),
                         ),
                       ],
                     ),
+
+                    const SizedBox(height: 20),
                   ],
                 ),
               ),

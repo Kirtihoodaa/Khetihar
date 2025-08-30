@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:khetihar/Components/CustomButton.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:khetihar/Theme/AppColors.dart';
+import 'package:khetihar/Theme/FontSize.dart';
 
 class OtpVerificationScreen extends StatelessWidget {
   OtpVerificationScreen({super.key});
@@ -29,13 +30,11 @@ class OtpVerificationScreen extends StatelessWidget {
                         fit: BoxFit.cover,
                       ),
                     ),
-
                     Positioned(
                       top: 40,
                       left: 10,
                       child: CircleAvatar(
                         backgroundColor: Colors.white,
-                        
                         child: IconButton(
                           icon: const Icon(
                             Icons.arrow_back,
@@ -62,19 +61,22 @@ class OtpVerificationScreen extends StatelessWidget {
                   "OTP Verification",
                   style: TextStyle(
                     color: AppColors.green,
-                    fontSize: 22,
+                    fontSize: large(),
                     fontWeight: FontWeight.bold,
                   ),
                 ),
 
                 const SizedBox(height: 10),
 
-                const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 24),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 24),
                   child: Text(
                     "Enter the verification code",
                     textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: 14, color: Colors.black87),
+                    style: TextStyle(
+                      fontSize: secondary(),
+                      color: Colors.black87,
+                    ),
                   ),
                 ),
 
@@ -111,7 +113,6 @@ class OtpVerificationScreen extends StatelessWidget {
 
                 const SizedBox(height: 25),
 
-                // ---------- VERIFY BUTTON (CustomButton) ----------
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 24),
                   child: CustomButton(
@@ -128,13 +129,15 @@ class OtpVerificationScreen extends StatelessWidget {
 
                 const SizedBox(height: 15),
 
-                // ---------- RESEND TEXT ----------
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const Text(
+                    Text(
                       "Didn’t receive code? ",
-                      style: TextStyle(color: Colors.black87, fontSize: 14),
+                      style: TextStyle(
+                        color: Colors.black87,
+                        fontSize: tertiary(),
+                      ),
                     ),
                     GestureDetector(
                       onTap: () {
@@ -144,7 +147,7 @@ class OtpVerificationScreen extends StatelessWidget {
                         "Resend",
                         style: TextStyle(
                           color: AppColors.green,
-                          fontSize: 14,
+                          fontSize: tertiary(),
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -157,7 +160,6 @@ class OtpVerificationScreen extends StatelessWidget {
             ),
           ),
 
-          // ---------- RICE IMAGE ----------
           Positioned(
             top: 300,
             right: 0,
@@ -173,7 +175,6 @@ class OtpVerificationScreen extends StatelessWidget {
   }
 }
 
-// ---------- CUSTOM CURVED CLIPPER ----------
 class TiltedCurveClipper extends CustomClipper<Path> {
   @override
   Path getClip(Size size) {
@@ -183,7 +184,6 @@ class TiltedCurveClipper extends CustomClipper<Path> {
     Path path = Path();
     path.lineTo(0, h - 60);
 
-    // curve from bottom-left → slightly up → top-right
     path.quadraticBezierTo(w * 0.5, h, w, h - 150);
 
     path.lineTo(w, 0);
