@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_social_button/flutter_social_button.dart';
 import 'package:get/get.dart';
 import 'package:khetihar/Components/CustomButton.dart';
 import 'package:khetihar/Components/InputFields.dart';
@@ -20,7 +21,6 @@ class LoginScreen extends StatelessWidget {
           SingleChildScrollView(
             child: Column(
               children: [
-               
                 Stack(
                   children: [
                     ClipPath(
@@ -51,7 +51,6 @@ class LoginScreen extends StatelessWidget {
 
                 const SizedBox(height: 10),
 
-         
                 Image.asset(
                   "Assets/HomeScreens/Logo.png",
                   height: 65,
@@ -60,7 +59,6 @@ class LoginScreen extends StatelessWidget {
 
                 const SizedBox(height: 20),
 
-           
                 Column(
                   children: [
                     Text(
@@ -84,7 +82,6 @@ class LoginScreen extends StatelessWidget {
 
                 const SizedBox(height: 25),
 
-            
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20),
                   child: CustomInputField(
@@ -96,7 +93,6 @@ class LoginScreen extends StatelessWidget {
 
                 const SizedBox(height: 15),
 
-         
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20),
                   child: CustomInputField(
@@ -111,7 +107,10 @@ class LoginScreen extends StatelessWidget {
                   child: Align(
                     alignment: Alignment.centerRight,
                     child: TextButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Get.toNamed('/forgot');
+
+                      },
                       child: const Text(
                         "Forgot Password?",
                         style: TextStyle(color: AppColors.green),
@@ -122,11 +121,11 @@ class LoginScreen extends StatelessWidget {
 
                 const SizedBox(height: 10),
 
-
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20),
                   child: CustomButton(
                     text: "Login",
+                    foregroundColor: Colors.white,
                     expand: true,
                     onPressed: () {
                       debugPrint("Login pressed ✅");
@@ -136,7 +135,6 @@ class LoginScreen extends StatelessWidget {
 
                 const SizedBox(height: 20),
 
-         
                 Row(
                   children: [
                     const Expanded(child: Divider(thickness: 1)),
@@ -154,30 +152,45 @@ class LoginScreen extends StatelessWidget {
                   ],
                 ),
 
-                const SizedBox(height: 20),
+                const SizedBox(height: 10),
 
- 
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+
                   children: [
-                    _socialIcon("Assets/Icons/facebook.png"),
-                    const SizedBox(width: 20),
-                    _socialIcon("Assets/Icons/google.png"),
-                    const SizedBox(width: 20),
-                    _socialIcon("Assets/Icons/apple.png"),
+                    IconButton(
+                      icon: FaIcon(
+                        FontAwesomeIcons.facebook,
+                        color: AppColors.green,
+                      ),
+                      onPressed: () {},
+                    ),
+                    IconButton(
+                      icon: FaIcon(
+                        FontAwesomeIcons.apple,
+                        color: AppColors.green,
+                      ),
+                      onPressed: () {},
+                    ),
+                    IconButton(
+                      icon: FaIcon(
+                        FontAwesomeIcons.google,
+                        color: AppColors.green,
+                      ),
+                      onPressed: () {},
+                    ),
                   ],
                 ),
 
-                const SizedBox(height: 30),
+                const SizedBox(height: 20),
 
-           
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     const Text("Don’t have an account? "),
                     GestureDetector(
                       onTap: () {
-                        debugPrint("Register clicked ✅");
+                        Get.toNamed('/register');
                       },
                       child: const Text(
                         "Register Now",
@@ -195,7 +208,6 @@ class LoginScreen extends StatelessWidget {
             ),
           ),
 
-      
           Positioned(
             top: 300,
             right: 0,
@@ -209,16 +221,7 @@ class LoginScreen extends StatelessWidget {
       ),
     );
   }
-
-  Widget _socialIcon(String assetPath) {
-    return CircleAvatar(
-      radius: 22,
-      backgroundColor: Colors.white,
-      child: Image.asset(assetPath, height: 25, width: 25),
-    );
-  }
 }
-
 
 class TiltedCurveClipper extends CustomClipper<Path> {
   @override

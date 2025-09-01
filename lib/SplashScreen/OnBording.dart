@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:khetihar/Components/CustomButton.dart';
-import 'package:khetihar/SplashScreen/WelcomeScreen.dart';
 import 'package:khetihar/Theme/AppColors.dart';
 import 'package:khetihar/Theme/FontSize.dart';
 
@@ -55,16 +55,12 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
         curve: Curves.ease,
       );
     } else {
-      Navigator.of(
-        context,
-      ).pushReplacement(MaterialPageRoute(builder: (_) => WelcomeScreen()));
+      Get.offAllNamed('/welcome');
     }
   }
 
   void _skip() {
-    Navigator.of(
-      context,
-    ).pushReplacement(MaterialPageRoute(builder: (_) => WelcomeScreen()));
+    Get.offAllNamed('/welcome');
   }
 
   @override

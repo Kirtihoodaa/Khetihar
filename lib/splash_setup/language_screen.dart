@@ -4,14 +4,14 @@ import 'package:get_storage/get_storage.dart';
 
 import '../Theme/AppColors.dart';
 import '../Theme/FontSize.dart';
-       // <-- sizes
+// <-- sizes
 import '../SplashScreen/OnBording.dart';
 
 class AppLanguage {
-  final String code;    // 'en'
+  final String code; // 'en'
   final String country; // 'US'
-  final String title;   // English
-  final String native;  // English/हिंदी/...
+  final String title; // English
+  final String native; // English/हिंदी/...
   const AppLanguage({
     required this.code,
     required this.country,
@@ -37,11 +37,15 @@ const _languages = <AppLanguage>[
   AppLanguage(code: 'mr', country: 'IN', title: 'Marathi', native: 'मराठी'),
   AppLanguage(code: 'ur', country: 'IN', title: 'Urdu', native: 'اُردُو'),
   AppLanguage(code: 'as', country: 'IN', title: 'Assamese', native: 'অসমীয়া'),
-  AppLanguage(code: 'sa', country: 'IN', title: 'Sanskrit', native: 'संस्कृतम्'),
+  AppLanguage(
+    code: 'sa',
+    country: 'IN',
+    title: 'Sanskrit',
+    native: 'संस्कृतम्',
+  ),
 ];
 
 class LanguageScreen extends StatefulWidget {
-  static const String route = '/language';
   const LanguageScreen({super.key});
 
   @override
@@ -57,11 +61,7 @@ class _LanguageScreenState extends State<LanguageScreen> {
     final box = GetStorage();
     box.write('lang', chosen.key);
     Get.updateLocale(chosen.locale);
-    Get.offAll(
-          () => OnboardingScreen(),
-      transition: Transition.fadeIn,
-      duration: const Duration(milliseconds: 300),
-    );
+    Get.offAllNamed('/onboarding');
   }
 
   @override
@@ -87,11 +87,14 @@ class _LanguageScreenState extends State<LanguageScreen> {
               // top title
               Padding(
                 padding: const EdgeInsets.only(top: 4, bottom: 8),
-                child: Text('Select The Application Language', style: titleStyle),
+                child: Text(
+                  'Select The Application Language',
+                  style: titleStyle,
+                ),
                 // If you're using i18n, keep this instead:
                 // child: Text('choose_language_title'.tr, style: titleStyle),
               ),
-               SizedBox(height: 12,),
+              SizedBox(height: 12),
               // grid of pill chips
               Expanded(
                 child: GridView.builder(
@@ -129,8 +132,9 @@ class _LanguageScreenState extends State<LanguageScreen> {
                       }
                       return AppColors.green;
                     }),
-                    foregroundColor:
-                    WidgetStateProperty.all<Color>(Colors.white),
+                    foregroundColor: WidgetStateProperty.all<Color>(
+                      Colors.white,
+                    ),
                     elevation: WidgetStateProperty.all<double>(0),
                     shape: WidgetStateProperty.all<RoundedRectangleBorder>(
                       RoundedRectangleBorder(
@@ -175,11 +179,12 @@ class _LangChip extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // In your image, unselected chips are light grey fills; page is white.
-    final bg = selected ? AppColors.green : AppColors.grey;       // #F7F8F9
+    final bg = selected ? AppColors.green : AppColors.grey; // #F7F8F9
     final fg = selected ? Colors.white : const Color(0xFF202328);
-    final border = selected
-        ? BorderSide(color: AppColors.green, width: 1.0)
-        : const BorderSide(color: AppColors.greyBorder, width: 1.0);
+    final border =
+        selected
+            ? BorderSide(color: AppColors.green, width: 1.0)
+            : const BorderSide(color: AppColors.greyBorder, width: 1.0);
 
     final singleLine = native.trim() == title.trim();
 
@@ -190,66 +195,70 @@ class _LangChip extends StatelessWidget {
         color: bg,
         borderRadius: BorderRadius.circular(38),
         //border: Border.fromBorderSide(border),
-        boxShadow: selected
-            ? [
-          BoxShadow(
-            color: AppColors.green.withOpacity(0.22),
-            blurRadius: 10,
-            offset: const Offset(0, 6),
-          )
-        ]
-            : const [],
+        boxShadow:
+            selected
+                ? [
+                  BoxShadow(
+                    color: AppColors.green.withOpacity(0.22),
+                    blurRadius: 10,
+                    offset: const Offset(0, 6),
+                  ),
+                ]
+                : const [],
       ),
       child: Material(
         color: Colors.transparent,
         child: InkWell(
           borderRadius: BorderRadius.circular(28),
           onTap: onTap,
-          splashColor: selected
-              ? Colors.grey.withOpacity(0.30)
-              : AppColors.green.withOpacity(0.06),
+          splashColor:
+              selected
+                  ? Colors.grey.withOpacity(0.30)
+                  : AppColors.green.withOpacity(0.06),
           child: Padding(
             // slightly taller pills like your layout
             padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
             child: Center(
-              child: singleLine
-              // “English” shows as a single line in your screenshot
-                  ? Text(
-                native,
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: secondary(),          // 16
-                  fontWeight: FontWeight.w700,    // bold
-                  color: fg,
-                  height: 1.15,
-                ),
-              )
-                  : Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Text(
-                    native,
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: secondary(),        // 16
-                      fontWeight: FontWeight.w700,  // bold top line
-                      color: fg,
-                      height: 1.05,
-                    ),
-                  ),
-                  const SizedBox(height: 2),
-                  Text(
-                    title,
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: tertiary(),         // 14
-                      fontWeight: FontWeight.w500,  // lighter bottom line
-                      color: fg.withOpacity(0.9),
-                      height: 1.1,
-                    ),
-                  ),
-                ],
-              ),
+              child:
+                  singleLine
+                      // “English” shows as a single line in your screenshot
+                      ? Text(
+                        native,
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontSize: secondary(), // 16
+                          fontWeight: FontWeight.w700, // bold
+                          color: fg,
+                          height: 1.15,
+                        ),
+                      )
+                      : Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Text(
+                            native,
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontSize: secondary(), // 16
+                              fontWeight: FontWeight.w700, // bold top line
+                              color: fg,
+                              height: 1.05,
+                            ),
+                          ),
+                          const SizedBox(height: 2),
+                          Text(
+                            title,
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontSize: tertiary(), // 14
+                              fontWeight:
+                                  FontWeight.w500, // lighter bottom line
+                              color: fg.withOpacity(0.9),
+                              height: 1.1,
+                            ),
+                          ),
+                        ],
+                      ),
             ),
           ),
         ),

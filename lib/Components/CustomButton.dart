@@ -113,27 +113,25 @@ class CustomButton extends StatelessWidget {
     final theme = Theme.of(context);
     final effectiveStyle =
         textStyle ??
-        theme.textTheme.labelLarge?.copyWith(
-          fontSize: fontSize,
-          fontWeight: fontWeight ?? FontWeight.w600,
-          color: foregroundColor,
-        );
+            theme.textTheme.labelLarge?.copyWith(
+              fontSize: fontSize,
+              fontWeight: fontWeight ?? FontWeight.w600,
+              color: foregroundColor,
+            );
 
     final displayedText = uppercase ? text.toUpperCase() : text;
 
     final iconW =
         iconWidget ??
-        (icon != null
-            ? Icon(icon, size: iconSize, color: foregroundColor)
-            : null);
+            (icon != null
+                ? Icon(icon, size: iconSize, color: foregroundColor)
+                : null);
 
-    final label = Flexible(
-      child: Text(
-        displayedText,
-        maxLines: 1,
-        overflow: TextOverflow.ellipsis,
-        style: effectiveStyle,
-      ),
+    final label = Text(
+      displayedText,
+      maxLines: 1,
+      overflow: TextOverflow.ellipsis,
+      style: effectiveStyle,
     );
 
     if (isLoading) {
@@ -155,7 +153,7 @@ class CustomButton extends StatelessWidget {
             ),
           ),
           SizedBox(width: iconGap),
-          label,
+          Flexible(child: label), // ✅ here Flexible is valid (inside Row)
         ],
       );
     }
@@ -163,15 +161,15 @@ class CustomButton extends StatelessWidget {
     if (iconW != null) {
       return Row(
         mainAxisSize: MainAxisSize.min,
-        children:
-            iconPosition == IconPosition.start
-                ? [iconW, SizedBox(width: iconGap), label]
-                : [label, SizedBox(width: iconGap), iconW],
+        children: iconPosition == IconPosition.start
+            ? [iconW, SizedBox(width: iconGap), Flexible(child: label)]
+            : [Flexible(child: label), SizedBox(width: iconGap), iconW],
       );
     }
 
-    return label;
+    return label; // ✅ no Flexible here
   }
+
 
   @override
   Widget build(BuildContext context) {

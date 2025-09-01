@@ -99,8 +99,7 @@ class ForgetPasswordScreen extends StatelessWidget {
                   child: CustomButton(
                     text: "Send Reset Link",
                     expand: true,
-                    height: 50,
-                    radius: 30,
+                    foregroundColor: Colors.white,
                     backgroundColor: AppColors.green,
                     onPressed: () {},
                   ),
