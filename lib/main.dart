@@ -59,7 +59,7 @@ class MyApp extends StatelessWidget {
         ),
       ),
     );
-    return MaterialApp(home: NotificationsScreen());
+    // return MaterialApp(home: NotificationsScreen());
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       theme: theme,
