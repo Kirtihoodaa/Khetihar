@@ -9,6 +9,7 @@ import 'package:khetihar/splash_setup/language_screen.dart';
 import 'package:khetihar/splash_setup/splash_screen.dart';
 import 'package:khetihar/splash_setup/translations.dart';
 
+import 'AllRoutes.dart';
 import 'SplashScreen/OnBording.dart';
 import 'Theme/AppColors.dart';
 
@@ -64,12 +65,14 @@ class MyApp extends StatelessWidget {
       translations: AppTranslations(),
       locale: initialLocale,
       fallbackLocale: const Locale('en', 'US'),
-      initialRoute: SplashScreen.route,
-      getPages: [
-        GetPage(name: SplashScreen.route, page: () => const SplashScreen()),
-        GetPage(name: LanguageScreen.route, page: () => const LanguageScreen()),
-        GetPage(name: '/onboarding', page: () => OnboardingScreen()),
-      ],
+      getPages: allPages,
+      initialRoute: '/',
+      // initialRoute: SplashScreen.route,
+      // getPages: [
+      //   GetPage(name: SplashScreen.route, page: () => const SplashScreen()),
+      //   GetPage(name: LanguageScreen.route, page: () => const LanguageScreen()),
+      //   GetPage(name: '/onboarding', page: () => OnboardingScreen()),
+      // ],
     );
   }
 }

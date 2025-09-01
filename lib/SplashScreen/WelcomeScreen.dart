@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:khetihar/Components/CustomButton.dart';
 import 'package:khetihar/Theme/AppColors.dart';
 import 'package:khetihar/Theme/FontSize.dart';
@@ -67,7 +69,9 @@ class WelcomeScreen extends StatelessWidget {
                   // Login Button
                   CustomButton(
                     text: "Login",
-                    onPressed: () {},
+                    onPressed: () {
+                      Get.offAllNamed('/login');
+                    },
                     backgroundColor: AppColors.green,
                     foregroundColor: Colors.white,
                     width: double.infinity,
@@ -78,7 +82,9 @@ class WelcomeScreen extends StatelessWidget {
                   // Register Button
                   CustomButton(
                     text: "Register",
-                    onPressed: () {},
+                    onPressed: () {
+                      Get.offAllNamed('/register');
+                    },
                     backgroundColor: AppColors.brown,
                     foregroundColor: Colors.white,
                     width: double.infinity,

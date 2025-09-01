@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_social_button/flutter_social_button.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:khetihar/Components/CustomButton.dart';
 import 'package:khetihar/Components/InputFields.dart';
 import 'package:khetihar/Theme/AppColors.dart';
@@ -195,6 +198,7 @@ class RegisterScreen extends StatelessWidget {
 
                     CustomButton(
                       text: "Register",
+                      foregroundColor: Colors.white,
                       expand: true,
                       onPressed: () {
                         if (_formKey.currentState!.validate() &&
@@ -228,13 +232,30 @@ class RegisterScreen extends StatelessWidget {
                     const SizedBox(height: 20),
 
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      // crossAxisAlignment: CrossAxisAlignment.,
                       children: [
-                        Image.asset("Assets/Icons/facebook.png", height: 40),
-                        const SizedBox(width: 20),
-                        Image.asset("Assets/Icons/google.png", height: 40),
-                        const SizedBox(width: 20),
-                        Image.asset("Assets/Icons/apple.png", height: 40),
+                        IconButton(
+                          icon: FaIcon(
+                            FontAwesomeIcons.facebook,
+                            color: AppColors.green,
+                          ),
+                          onPressed: () {},
+                        ),
+                        IconButton(
+                          icon: FaIcon(
+                            FontAwesomeIcons.apple,
+                            color: AppColors.green,
+                          ),
+                          onPressed: () {},
+                        ),
+                        IconButton(
+                          icon: FaIcon(
+                            FontAwesomeIcons.google,
+                            color: AppColors.green,
+                          ),
+                          onPressed: () {},
+                        ),
                       ],
                     ),
 
@@ -249,7 +270,7 @@ class RegisterScreen extends StatelessWidget {
                         ),
                         GestureDetector(
                           onTap: () {
-                            debugPrint("Login clicked");
+                            Get.toNamed('/login');
                           },
                           child: Text(
                             "Login Now",

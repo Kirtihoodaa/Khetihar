@@ -4,25 +4,24 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import '../Theme/AppColors.dart'; // <- your colors file
 
-import '../Theme/AppColors.dart';            // <- your colors file
-import 'language_screen.dart';
-import '../SplashScreen/OnBording.dart';
 
 /// ====== TUNING KNOBS (adjust these only) ======
-const int kTotalMs       = 2600;   // overall duration (↑ to make everything slower)
-const double kRevealDelay = 0.0;   // 0 = reveal starts immediately
-const double kRevealSpan  = 0.95;  // fraction of timeline used by reveal (0..1). ↑ feels longer
-const double kRevealPow   = 1.55;  // >1 = slower start, <1 = faster start
-const Curve kRevealCurve  = Curves.easeInOutCubic;
+const int kTotalMs = 2600; // overall duration (↑ to make everything slower)
+const double kRevealDelay = 0.0; // 0 = reveal starts immediately
+const double kRevealSpan =
+    0.95; // fraction of timeline used by reveal (0..1). ↑ feels longer
+const double kRevealPow = 1.55; // >1 = slower start, <1 = faster start
+const Curve kRevealCurve = Curves.easeInOutCubic;
 
 const double kLogoOvershoot = 0.015; // subtle logo pop amount
-const double kLogoSpan      = 0.33;  // fraction of timeline for logo pop
-const int kHoldMs          = 80;     // small hold after anim (0..120 ok)
+const double kLogoSpan = 0.33; // fraction of timeline for logo pop
+const int kHoldMs = 80; // small hold after anim (0..120 ok)
 /// ===============================================
 
 class SplashScreen extends StatefulWidget {
-  static const String route = '/splash';
+  // static const String route = '/splash';
   const SplashScreen({super.key});
 
   @override
@@ -61,13 +60,17 @@ class _SplashScreenState extends State<SplashScreen>
     final logoEnd = kLogoSpan.clamp(0.05, 1.0);
     _logoScale = TweenSequence<double>([
       TweenSequenceItem(
-        tween: Tween(begin: 0.94, end: 1.0 + kLogoOvershoot)
-            .chain(CurveTween(curve: Curves.easeOutBack)),
+        tween: Tween(
+          begin: 0.94,
+          end: 1.0 + kLogoOvershoot,
+        ).chain(CurveTween(curve: Curves.easeOutBack)),
         weight: 60,
       ),
       TweenSequenceItem(
-        tween: Tween(begin: 1.0 + kLogoOvershoot, end: 1.0)
-            .chain(CurveTween(curve: Curves.easeIn)),
+        tween: Tween(
+          begin: 1.0 + kLogoOvershoot,
+          end: 1.0,
+        ).chain(CurveTween(curve: Curves.easeIn)),
         weight: 40,
       ),
     ]).animate(CurvedAnimation(parent: _c, curve: Interval(0.0, logoEnd)));
@@ -99,29 +102,18 @@ class _SplashScreenState extends State<SplashScreen>
       final box = GetStorage();
       final saved = box.read<String>('lang'); // e.g., "en_US"
       if (saved == null) {
-        Get.offAll(
-              () => const LanguageScreen(),
-          transition: Transition.fadeIn,
-          duration: const Duration(milliseconds: 260),
-        );
+        Get.toNamed('/LanguageScreen');
+
         return;
       }
       final parts = saved.split('_');
       if (parts.length == 2) {
         Get.updateLocale(Locale(parts[0], parts[1]));
       }
-      Get.offAll(
-            () => OnboardingScreen(),
-        transition: Transition.fadeIn,
-        duration: const Duration(milliseconds: 260),
+      Get.toNamed('/onboarding'
       );
     } catch (_) {
-      // If anything unexpected happens, go safe to LanguageScreen
-      Get.offAll(
-            () => const LanguageScreen(),
-        transition: Transition.fadeIn,
-        duration: const Duration(milliseconds: 260),
-      );
+      Get.toNamed('/LanguageScreen');
     }
   }
 
@@ -139,7 +131,8 @@ class _SplashScreenState extends State<SplashScreen>
         final size = MediaQuery.of(context).size;
 
         // radius to cover screen from center
-        final maxR = sqrt(size.width * size.width + size.height * size.height) / 2;
+        final maxR =
+            sqrt(size.width * size.width + size.height * size.height) / 2;
         final t = _revealBase.value;
         final shapedT = pow(t, kRevealPow).toDouble(); // slower start
         final radius = lerpDouble(0, maxR, shapedT)!;
@@ -149,7 +142,10 @@ class _SplashScreenState extends State<SplashScreen>
           body: CustomPaint(
             painter: _RevealPainter(
               radius: radius,
-              center: Offset(size.width / 2, size.height / 2), // reveal from exact center
+              center: Offset(
+                size.width / 2,
+                size.height / 2,
+              ), // reveal from exact center
               color: AppColors.green,
             ),
             child: Center(
@@ -181,10 +177,16 @@ class _RevealPainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    final base = Paint()..color = AppColors.grey..isAntiAlias = true;
+    final base =
+        Paint()
+          ..color = AppColors.grey
+          ..isAntiAlias = true;
     canvas.drawRect(Offset.zero & size, base);
 
-    final reveal = Paint()..color = color..isAntiAlias = true;
+    final reveal =
+        Paint()
+          ..color = color
+          ..isAntiAlias = true;
     canvas.drawCircle(center, radius, reveal);
   }
 
@@ -224,10 +226,7 @@ class _LogoBadge extends StatelessWidget {
       clipBehavior: Clip.antiAlias,
       child: Padding(
         padding: const EdgeInsets.all(10),
-        child: Image.asset(
-          'Assets/HomeScreens/Logo.png',
-          fit: BoxFit.contain,
-        ),
+        child: Image.asset('Assets/HomeScreens/Logo.png', fit: BoxFit.contain),
       ),
     );
   }
