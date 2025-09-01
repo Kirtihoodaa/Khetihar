@@ -5,6 +5,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:khetihar/Login%20Registration/book_field_date_time.dart';
 import 'package:khetihar/Login%20Registration/confirm_booking_field_agent.dart';
+import 'package:khetihar/Login%20Registration/notifications.dart';
 import 'package:khetihar/splash_setup/language_screen.dart';
 import 'package:khetihar/splash_setup/splash_screen.dart';
 import 'package:khetihar/splash_setup/translations.dart';
@@ -58,7 +59,7 @@ class MyApp extends StatelessWidget {
         ),
       ),
     );
-    // return MaterialApp(home: ConfirmBookingFieldAgent());
+    return MaterialApp(home: NotificationsScreen());
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       theme: theme,
