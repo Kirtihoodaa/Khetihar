@@ -10,5 +10,8 @@ double secondary() => 16;
 //Paragraph body
 double tertiary() => 14;
 
+//paragraph
+double medium() => 12;
+
 //Small text
 double small() => 10;

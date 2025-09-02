@@ -7,12 +7,12 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      backgroundColor: AppColors.grey,
+      backgroundColor: AppColors.secondarygrey,
       elevation: 0,
       automaticallyImplyLeading: false,
       titleSpacing: 0,
       title: Padding(
-        padding: const EdgeInsets.only(left: 12),
+        padding: EdgeInsets.only(left: 12),
         child: CircleAvatar(
           radius: 22,
           backgroundColor: Colors.white,

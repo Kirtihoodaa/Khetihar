@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:khetihar/Components/CustomAppBar.dart';
+import 'package:khetihar/HomePages/BuySeeds/BuySeeds.dart';
 import 'package:khetihar/Theme/AppColors.dart';
 import 'package:khetihar/Components/CustomButton.dart';
 import 'package:khetihar/Theme/FontSize.dart';
@@ -67,11 +70,14 @@ class HomePage extends StatelessWidget {
               height: 80,
               child: ListView(
                 scrollDirection: Axis.horizontal,
-                children: const [
+                children: [
                   _ServiceChip(
                     icon: Icons.eco_outlined,
                     label: 'Buy Seeds',
                     color: Color(0xFF16A34A),
+                    onTap: () {
+                      Get.to(() => SeedsPage());
+                    },
                   ),
                   _ServiceChip(
                     icon: Icons.science_outlined,
@@ -438,50 +444,55 @@ class _ServiceChip extends StatelessWidget {
   final IconData icon;
   final String label;
   final Color color;
+  final VoidCallback? onTap;
 
   const _ServiceChip({
     required this.icon,
     required this.label,
     required this.color,
+    this.onTap,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 70,
-      margin: const EdgeInsets.only(right: 14),
-      child: Column(
-        children: [
-          Container(
-            width: 55,
-            height: 45,
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              color: Colors.white,
-              border: Border.all(color: AppColors.greyBorder),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black.withOpacity(0.05),
-                  blurRadius: 8,
-                  offset: const Offset(0, 3),
-                ),
-              ],
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        width: 70,
+        margin: const EdgeInsets.only(right: 14),
+        child: Column(
+          children: [
+            Container(
+              width: 55,
+              height: 45,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: Colors.white,
+                border: Border.all(color: AppColors.greyBorder),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.05),
+                    blurRadius: 8,
+                    offset: const Offset(0, 3),
+                  ),
+                ],
+              ),
+              child: Icon(icon, size: 26, color: color),
             ),
-            child: Icon(icon, size: 26, color: color),
-          ),
-          const SizedBox(height: 8),
-          Text(
-            label,
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              fontSize: 11,
-              color: Colors.black,
-              fontWeight: FontWeight.w600,
-              height: 1.2,
+            const SizedBox(height: 8),
+            Text(
+              label,
+              textAlign: TextAlign.center,
+              style: const TextStyle(
+                fontSize: 11,
+                color: Colors.black,
+                fontWeight: FontWeight.w600,
+                height: 1.2,
+              ),
+              maxLines: 2,
             ),
-            maxLines: 2,
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

@@ -69,6 +69,7 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - Assets/HomeScreens/
+    - Assets/Seeds/
   #   - images/a_dot_ham.jpeg
 flutter_native_splash:
   color: "#FFFFFF"                 # must match the start bg of in-app splash

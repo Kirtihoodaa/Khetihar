@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_social_button/flutter_social_button.dart';
 import 'package:get/get.dart';
+import 'package:khetihar/BottomNavigation/AppShell.dart';
 import 'package:khetihar/Components/CustomButton.dart';
 import 'package:khetihar/Components/InputFields.dart';
 import 'package:khetihar/HomePages/HomePage.dart';
@@ -126,7 +127,7 @@ class LoginScreen extends StatelessWidget {
                     foregroundColor: Colors.white,
                     expand: true,
                     onPressed: () {
-                      Get.to(HomePage());
+                      Get.offAll(() => AppShell());
                     },
                   ),
                 ),
