@@ -4,7 +4,7 @@ import 'package:khetihar/Components/CustomButton.dart';
 import 'package:khetihar/Components/InputFields.dart'
     show AllowedType, CustomInputField;
 import 'package:khetihar/Theme/AppColors.dart';
-
+import 'package:khetihar/Theme/FontSize.dart';
 import 'package:khetihar/Theme/Snackbar.dart';
 
 class CompleteProfileScreen extends StatelessWidget {
@@ -20,15 +20,7 @@ class CompleteProfileScreen extends StatelessWidget {
   final TextEditingController profitController = TextEditingController();
 
   final RxString gender = "".obs;
-
   final FocusNode dropdownFocusNode = FocusNode();
-
-  // Size functions
-  double large() => 26; // For large heading
-  double primary() => 18; // Main headings
-  double secondary() => 16; // Paragraph heading
-  double tertiary() => 14; // Paragraph body
-  double small() => 10; // Small text
 
   @override
   Widget build(BuildContext context) {
@@ -38,18 +30,18 @@ class CompleteProfileScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
+            // ---------- Top Background ----------
             Stack(
               clipBehavior: Clip.none,
               children: [
                 Container(
-                  height: 250, // Background image height
+                  height: 250,
                   width: double.infinity,
                   child: Image.asset(
                     "Assets/HomeScreens/profile_background.png",
                     fit: BoxFit.cover,
                   ),
                 ),
-
                 Positioned(
                   top: 10,
                   left: 10,
@@ -57,12 +49,9 @@ class CompleteProfileScreen extends StatelessWidget {
                     width: 40,
                     height: 40,
                     decoration: BoxDecoration(
-                      color: Colors.white, // White background
+                      color: Colors.white,
                       shape: BoxShape.circle,
-                      border: Border.all(
-                        color: AppColors.green,
-                        width: 2,
-                      ), // Green border
+                      border: Border.all(color: AppColors.green, width: 2),
                     ),
                     child: IconButton(
                       icon: const Icon(
@@ -73,12 +62,9 @@ class CompleteProfileScreen extends StatelessWidget {
                     ),
                   ),
                 ),
-
                 Positioned(
-                  top: 100, // Centering the text vertically
-                  left:
-                      MediaQuery.of(context).size.width / 2 -
-                      120, // Center horizontally
+                  top: 100,
+                  left: MediaQuery.of(context).size.width / 2 - 120,
                   child: Text(
                     "Complete Your Profile",
                     style: TextStyle(
@@ -88,15 +74,14 @@ class CompleteProfileScreen extends StatelessWidget {
                     ),
                   ),
                 ),
-
                 Positioned(
                   bottom: -45,
                   left: MediaQuery.of(context).size.width / 2 - 45,
                   child: Container(
-                    width: 90, // Width of the circle
-                    height: 90, // Height of the circle
+                    width: 90,
+                    height: 90,
                     decoration: BoxDecoration(
-                      color: Colors.white, // White inside the circle
+                      color: Colors.white,
                       shape: BoxShape.circle,
                       border: Border.all(color: AppColors.green, width: 4),
                     ),
@@ -114,11 +99,15 @@ class CompleteProfileScreen extends StatelessWidget {
               ],
             ),
 
-            const SizedBox(height: 60), // space for avatar
+            const SizedBox(height: 60),
+
+            // ---------- Form ----------
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  const SizedBox(height: 6),
                   CustomInputField(
                     labelText: "Enter your full name",
                     controller: nameController,
@@ -126,6 +115,7 @@ class CompleteProfileScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: 14),
 
+                  const SizedBox(height: 6),
                   CustomInputField(
                     labelText: "Enter your phone number",
                     controller: phoneController,
@@ -134,6 +124,7 @@ class CompleteProfileScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: 14),
 
+                  const SizedBox(height: 6),
                   Obx(
                     () => Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 5),
@@ -177,6 +168,7 @@ class CompleteProfileScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: 14),
 
+                  const SizedBox(height: 6),
                   CustomInputField(
                     labelText: "DD/MM/YYYY",
                     controller: dobController,
@@ -184,6 +176,7 @@ class CompleteProfileScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: 14),
 
+                  const SizedBox(height: 6),
                   CustomInputField(
                     labelText: "Enter your location",
                     controller: locationController,
@@ -191,6 +184,12 @@ class CompleteProfileScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: 14),
 
+                  // Land Area
+                  Text(
+                    "How many acres of land do you farm?",
+                    style: TextStyle(fontSize: tertiary()),
+                  ),
+                  const SizedBox(height: 6),
                   CustomInputField(
                     labelText: "Enter area in acres",
                     controller: landController,
@@ -198,6 +197,11 @@ class CompleteProfileScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: 14),
 
+                  Text(
+                    "What types of crops do you grow?",
+                    style: TextStyle(fontSize: tertiary()),
+                  ),
+                  const SizedBox(height: 6),
                   CustomInputField(
                     labelText: "E.g., Wheat, Rice, Cotton",
                     controller: cropsController,
@@ -205,6 +209,11 @@ class CompleteProfileScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: 14),
 
+                  Text(
+                    "How much crop yield do you get in a year?",
+                    style: TextStyle(fontSize: tertiary()),
+                  ),
+                  const SizedBox(height: 6),
                   CustomInputField(
                     labelText: "Enter yield in tons",
                     controller: yieldController,
@@ -212,6 +221,11 @@ class CompleteProfileScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: 14),
 
+                  Text(
+                    "What is your monthly profit?",
+                    style: TextStyle(fontSize: tertiary()),
+                  ),
+                  const SizedBox(height: 6),
                   CustomInputField(
                     labelText: "Enter amount in INR",
                     controller: profitController,
@@ -224,6 +238,7 @@ class CompleteProfileScreen extends StatelessWidget {
                   CustomButton(
                     text: "Book Your Field Agent",
                     expand: true,
+                    foregroundColor: Colors.white,
                     onPressed: () {
                       Get.toNamed('/BookFieldDateTime');
                     },
