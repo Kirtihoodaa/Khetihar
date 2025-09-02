@@ -55,7 +55,7 @@ class BookFieldScreen extends StatelessWidget {
               // Free Plan Card
               _FreePlanCard(
                 onGetStarted: () {
-                  Get.to(() => FieldInspectionIntro());
+                  Get.toNamed('/FieldInspection');
                 },
               ),
               const SizedBox(height: 16),

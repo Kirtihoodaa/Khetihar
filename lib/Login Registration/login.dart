@@ -27,7 +27,7 @@ class LoginScreen extends StatelessWidget {
                       clipper: TiltedCurveClipper(),
                       child: Image.asset(
                         "Assets/HomeScreens/farmer_login.png",
-                        height: 350,
+                        height: 300,
                         width: double.infinity,
                         fit: BoxFit.cover,
                       ),
@@ -49,16 +49,14 @@ class LoginScreen extends StatelessWidget {
                   ],
                 ),
 
-                const SizedBox(height: 10),
-
+                //const SizedBox(height: 10),
                 Image.asset(
                   "Assets/HomeScreens/Logo.png",
                   height: 65,
                   width: 65,
                 ),
 
-                const SizedBox(height: 20),
-
+                SizedBox(height: 10),
                 Column(
                   children: [
                     Text(
@@ -80,7 +78,7 @@ class LoginScreen extends StatelessWidget {
                   ],
                 ),
 
-                const SizedBox(height: 25),
+                const SizedBox(height: 20),
 
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -91,7 +89,7 @@ class LoginScreen extends StatelessWidget {
                   ),
                 ),
 
-                const SizedBox(height: 15),
+                const SizedBox(height: 10),
 
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -109,7 +107,6 @@ class LoginScreen extends StatelessWidget {
                     child: TextButton(
                       onPressed: () {
                         Get.toNamed('/forgot');
-
                       },
                       child: const Text(
                         "Forgot Password?",
@@ -133,7 +130,7 @@ class LoginScreen extends StatelessWidget {
                   ),
                 ),
 
-                const SizedBox(height: 20),
+                const SizedBox(height: 15),
 
                 Row(
                   children: [

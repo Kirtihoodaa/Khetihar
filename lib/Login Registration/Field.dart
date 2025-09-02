@@ -1,5 +1,7 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:khetihar/Components/CustomButton.dart';
 import 'package:khetihar/Theme/AppColors.dart';
 import 'package:khetihar/Theme/FontSize.dart';
@@ -87,7 +89,9 @@ class FieldInspectionIntro extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(horizontal: 18),
                     child: CustomButton(
                       text: 'Continue Field Inspection',
-                      onPressed: () {},
+                      onPressed: () {
+                        Get.toNamed('/CompleteProfileScreen');
+                      },
                       backgroundColor: AppColors.brown,
                       foregroundColor: Colors.white,
                       width: double.infinity,

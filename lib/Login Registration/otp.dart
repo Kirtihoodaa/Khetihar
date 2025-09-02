@@ -117,12 +117,13 @@ class OtpVerificationScreen extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(horizontal: 24),
                   child: CustomButton(
                     text: "Verify",
+                    foregroundColor: Colors.white,
                     expand: true,
                     height: 50,
                     radius: 30,
                     backgroundColor: AppColors.green,
                     onPressed: () {
-                      debugPrint("Entered OTP: ${otpController.text}");
+                      Get.toNamed('/BookFieldScreen');
                     },
                   ),
                 ),
