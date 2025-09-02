@@ -201,12 +201,7 @@ class RegisterScreen extends StatelessWidget {
                       foregroundColor: Colors.white,
                       expand: true,
                       onPressed: () {
-                        if (_formKey.currentState!.validate() &&
-                            acceptTerms.value) {
-                          debugPrint("Register pressed ✅");
-                        } else {
-                          debugPrint("Validation failed ❌");
-                        }
+                        Get.toNamed('/otpVerification');
                       },
                     ),
 

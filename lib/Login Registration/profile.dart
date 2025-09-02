@@ -225,11 +225,7 @@ class CompleteProfileScreen extends StatelessWidget {
                     text: "Book Your Field Agent",
                     expand: true,
                     onPressed: () {
-                      SnackbarService.showSnack(
-                        title: 'Success',
-                        message: 'Profile Completed!',
-                        type: SnackType.success,
-                      );
+                      Get.toNamed('/BookFieldDateTime');
                     },
                   ),
                   const SizedBox(height: 40),
