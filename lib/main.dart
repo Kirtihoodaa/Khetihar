@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 
 import 'package:get_storage/get_storage.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:khetihar/HomePages/HomePage.dart';
 import 'package:khetihar/Login%20Registration/book_field_date_time.dart';
 import 'package:khetihar/Login%20Registration/confirm_booking_field_agent.dart';
 import 'package:khetihar/Login%20Registration/notifications.dart';
@@ -10,7 +11,7 @@ import 'package:khetihar/splash_setup/language_screen.dart';
 import 'package:khetihar/splash_setup/splash_screen.dart';
 import 'package:khetihar/splash_setup/translations.dart';
 
-import 'AllRoutes.dart';
+import 'Routes/AllRoutes.dart';
 import 'SplashScreen/OnBording.dart';
 import 'Theme/AppColors.dart';
 
@@ -59,7 +60,8 @@ class MyApp extends StatelessWidget {
         ),
       ),
     );
-    // return MaterialApp(home: NotificationsScreen());
+    // return MaterialApp(
+    //   home: HomePage(),
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       theme: theme,
@@ -68,6 +70,7 @@ class MyApp extends StatelessWidget {
       fallbackLocale: const Locale('en', 'US'),
       getPages: allPages,
       initialRoute: '/',
+
       // initialRoute: SplashScreen.route,
       // getPages: [
       //   GetPage(name: SplashScreen.route, page: () => const SplashScreen()),

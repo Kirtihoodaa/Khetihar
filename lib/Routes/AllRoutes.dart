@@ -8,11 +8,11 @@ import 'package:khetihar/Login%20Registration/profile.dart';
 import 'package:khetihar/splash_setup/language_screen.dart';
 import 'package:khetihar/splash_setup/splash_screen.dart';
 
-import 'Login Registration/forgotPassword.dart';
-import 'Login Registration/login.dart';
-import 'Login Registration/register.dart';
-import 'SplashScreen/OnBording.dart';
-import 'SplashScreen/WelcomeScreen.dart';
+import '../Login Registration/forgotPassword.dart';
+import '../Login Registration/login.dart';
+import '../Login Registration/register.dart';
+import '../SplashScreen/OnBording.dart';
+import '../SplashScreen/WelcomeScreen.dart';
 
 final List<GetPage> allPages = [
   GetPage(
