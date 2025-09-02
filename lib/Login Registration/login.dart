@@ -3,6 +3,7 @@ import 'package:flutter_social_button/flutter_social_button.dart';
 import 'package:get/get.dart';
 import 'package:khetihar/Components/CustomButton.dart';
 import 'package:khetihar/Components/InputFields.dart';
+import 'package:khetihar/HomePages/HomePage.dart';
 import 'package:khetihar/Theme/AppColors.dart';
 import 'package:khetihar/Theme/FontSize.dart';
 
@@ -125,7 +126,7 @@ class LoginScreen extends StatelessWidget {
                     foregroundColor: Colors.white,
                     expand: true,
                     onPressed: () {
-                      debugPrint("Login pressed ✅");
+                      Get.to(HomePage());
                     },
                   ),
                 ),
