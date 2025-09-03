@@ -3,9 +3,6 @@ import 'package:get/get.dart';
 
 import 'package:get_storage/get_storage.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:khetihar/AccountsAndSettings/accounts.dart';
-import 'package:khetihar/AccountsAndSettings/internal_pagez/my_orders.dart';
-import 'package:khetihar/AccountsAndSettings/internal_pagez/order_details.dart';
 
 import 'package:khetihar/splash_setup/translations.dart';
 
@@ -58,7 +55,7 @@ class MyApp extends StatelessWidget {
         ),
       ),
     );
-    return MaterialApp(home: OrderDetails());
+    //return MaterialApp(home: OrderDetails());
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       theme: theme,
