@@ -10,6 +10,7 @@ class ReusableProductCard extends StatefulWidget {
   final double? rating;
   final int? reviewCount;
   final VoidCallback? onCardTap;
+  final String heroTag;
 
   // optional callbacks
   final ValueChanged<bool>? onAddedChanged;
@@ -40,6 +41,7 @@ class ReusableProductCard extends StatefulWidget {
     this.imageHeight = 120,
     this.borderRadius,
     this.boxShadow,
+    required this.heroTag,
   });
 
   @override
@@ -139,21 +141,23 @@ class _ReusableProductCardState extends State<ReusableProductCard> {
   }
 
   Widget _buildImageSection(BorderRadius defaultBorderRadius) {
+    final topRadius = (widget.borderRadius ?? defaultBorderRadius).topLeft;
+
     return Stack(
       children: [
-        ClipRRect(
-          borderRadius: BorderRadius.vertical(
-            top: (widget.borderRadius ?? defaultBorderRadius).topLeft,
-          ),
-          child: Image.asset(
-            widget.image,
-            height: widget.imageHeight,
-            width: double.infinity,
-            fit: BoxFit.cover,
+        Hero(
+          tag: widget.heroTag,
+          child: ClipRRect(
+            borderRadius: BorderRadius.vertical(top: topRadius),
+            child: Image.asset(
+              widget.image,
+              height: widget.imageHeight,
+              width: double.infinity,
+              fit: BoxFit.cover,
+            ),
           ),
         ),
 
-        // Favorite Button
         if (widget.showFavorite)
           Positioned(
             right: 8,
@@ -163,20 +167,17 @@ class _ReusableProductCardState extends State<ReusableProductCard> {
                 setState(() => _favorited = !_favorited);
                 widget.onFavoriteChanged?.call(_favorited);
               },
-              child: CircleAvatar(
+              child: const CircleAvatar(
                 radius: 14,
                 backgroundColor: Colors.white,
-                child: Icon(
-                  _favorited ? Icons.favorite : Icons.favorite_border,
-                  size: 16,
-                  color: _favorited ? Colors.red : Colors.grey,
-                ),
+                child: Icon(Icons.favorite_border, size: 16, color: Colors.grey),
               ),
             ),
           ),
       ],
     );
   }
+
 
   Widget _buildRatingSection() {
     return Row(

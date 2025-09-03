@@ -13,6 +13,7 @@ import '../Login Registration/login.dart';
 import '../Login Registration/register.dart';
 import '../SplashScreen/OnBording.dart';
 import '../SplashScreen/WelcomeScreen.dart';
+import 'HomePageRoutes.dart';
 
 final List<GetPage> allPages = [
   GetPage(
@@ -88,4 +89,5 @@ final List<GetPage> allPages = [
     transition: Transition.cupertino,
     transitionDuration: const Duration(milliseconds: 400),
   ),
+  ...homepageroute
 ];

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:khetihar/Components/SecondaryAppBar.dart';
-import 'package:khetihar/Components/CategoryItems.dart'; 
-import 'package:khetihar/Components/GridView.dart'; 
-import 'package:khetihar/Components/ProductCard.dart'; 
+import 'package:khetihar/Components/GridView.dart';
+import 'package:khetihar/Components/ProductCard.dart';
 import 'package:khetihar/Theme/AppColors.dart';
 import 'package:khetihar/Theme/FontSize.dart';
 
@@ -99,13 +99,13 @@ class _CategoryDetailPageState extends State<CategoryDetailPage> {
       backgroundColor: Colors.white,
       appBar: Secondaryappbar(),
       body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16),
+        padding: const EdgeInsets.all(10),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // Search Bar (rounded + green search button)
             Container(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
+              padding: const EdgeInsets.symmetric(horizontal: 10),
               decoration: BoxDecoration(
                 color: AppColors.secondarygrey,
                 borderRadius: BorderRadius.circular(28),
@@ -157,24 +157,38 @@ class _CategoryDetailPageState extends State<CategoryDetailPage> {
             const SizedBox(height: 12),
 
             // Products Grid (
-            ReusableGridView(
-              items: _visible,
-              crossAxisCount: 2,
-              crossAxisSpacing: 16,
-              mainAxisSpacing: 16,
-              childAspectRatio: 0.66,
-              itemBuilder:
-                  (context, p, i) => ReusableProductCard(
-                    image: p['image'],
-                    title: p['title'],
-                    desc: p['desc'],
-                    price: p['price'],
-                    rating: p['rating'],
-                    reviewCount: p['reviewCount'],
-                    onCardTap: () {},
-                  ),
-            ),
-          ],
+      ReusableGridView<Map<String, dynamic>>(
+        items: _visible,
+        crossAxisCount: 2,
+        crossAxisSpacing: 16,
+        mainAxisSpacing: 16,
+        childAspectRatio: 0.66,
+        itemBuilder: (context, p, i) {
+          final heroTag = '${p['id'] ?? p['title']}_$i'; // stable & unique
+
+          return ReusableProductCard(
+            image: p['image'], // this is an asset path in your card
+            title: p['title'],
+            price: p['price'],
+            desc: p['desc'],
+            rating: p['rating'],
+            reviewCount: p['reviewCount'],
+            heroTag: heroTag,
+            onCardTap: () {
+              Get.toNamed(
+                '/ProductDetailPage',
+                arguments: {
+                  'product': p,
+                  'heroTag': heroTag,
+                },
+              );
+            },
+
+          );
+        },
+      )
+
+      ],
         ),
       ),
     );

@@ -9,6 +9,8 @@ import 'package:khetihar/HomePages/BuySeeds/CategoryDetails.dart';
 import 'package:khetihar/Theme/AppColors.dart';
 import 'package:khetihar/Theme/FontSize.dart';
 
+import 'ProductDetailspage.dart';
+
 class SeedsPage extends StatelessWidget {
   const SeedsPage({super.key});
 
@@ -197,20 +199,35 @@ class _SeedPageContentState extends State<SeedPageContent> {
 
         // Filtered Results Grid
         Expanded(
-          child: ReusableGridView(
-            items: _filteredProducts,
-            crossAxisCount: 2,
-            childAspectRatio: 0.65,
-            itemBuilder:
-                (context, product, index) => ReusableProductCard(
+          child:
+          ReusableGridView(
+              items: _filteredProducts,
+              crossAxisCount: 2,
+              childAspectRatio: 0.65,
+              itemBuilder:
+                  (context, product, index){
+                final heroTag = '${product['id'] ?? product['title']}_$index'; // stable & unique
+
+                return ReusableProductCard(
                   image: product['image']!,
                   title: product['title']!,
                   desc: product['desc']!,
                   price: product['price']!,
                   rating: product['rating'],
                   reviewCount: product['reviewCount'],
-                  onCardTap: () => _onProductTap(product),
-                ),
+                  heroTag: heroTag,
+                  onCardTap: () {
+                    Get.toNamed(
+                      '/ProductDetailPage',
+                      arguments: {
+                        'product': product,
+                        'heroTag': heroTag,
+                      },
+                    );
+                  },
+
+                );
+              }
           ),
         ),
 
@@ -236,15 +253,28 @@ class _SeedPageContentState extends State<SeedPageContent> {
           crossAxisCount: 2,
           childAspectRatio: 0.65,
           itemBuilder:
-              (context, product, index) => ReusableProductCard(
+              (context, product, index){
+                final heroTag = '${product['id'] ?? product['title']}_$index'; // stable & unique
+
+                return ReusableProductCard(
                 image: product['image']!,
                 title: product['title']!,
                 desc: product['desc']!,
                 price: product['price']!,
                 rating: product['rating'],
                 reviewCount: product['reviewCount'],
-                onCardTap: () => _onProductTap(product),
-              ),
+                  heroTag: heroTag,
+                  onCardTap: () {
+                    Get.toNamed(
+                      '/ProductDetailPage',
+                      arguments: {
+                        'product': product,
+                        'heroTag': heroTag,
+                      },
+                    );
+                  },
+                );
+              }
         ),
 
         const SizedBox(height: 16),
@@ -334,7 +364,7 @@ class _SeedPageContentState extends State<SeedPageContent> {
   }
 
   // Event Handlers
-  void _onCategoryTap(Map<String, String> category) {
+  void _onCategoryTap(Map<String, String> category) { 
     Get.to(() => CategoryDetailPage(categoryName: category['title']!));
   }
 
