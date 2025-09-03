@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:khetihar/Theme/AppColors.dart';
 
+import '../Theme/FontSize.dart';
+
 enum ButtonVariant { filled, outline, text }
 
 enum IconPosition { start, end }
@@ -50,7 +52,7 @@ class CustomButton extends StatelessWidget {
     this.padding,
     this.radius,
     this.elevation,
-    this.backgroundColor, 
+    this.backgroundColor,
     this.foregroundColor,
     this.borderColor,
     this.borderWidth = 1.5,
@@ -83,7 +85,9 @@ class CustomButton extends StatelessWidget {
 
     final resolvedBg =
         backgroundColor ??
-        (variant == ButtonVariant.filled ? AppColors.green : Colors.transparent);
+        (variant == ButtonVariant.filled
+            ? AppColors.green
+            : Colors.transparent);
 
     final resolvedBorder = borderColor ?? resolvedFg;
 
@@ -113,19 +117,19 @@ class CustomButton extends StatelessWidget {
     final theme = Theme.of(context);
     final effectiveStyle =
         textStyle ??
-            theme.textTheme.labelLarge?.copyWith(
-              fontSize: fontSize,
-              fontWeight: fontWeight ?? FontWeight.w600,
-              color: foregroundColor,
-            );
+        theme.textTheme.labelLarge?.copyWith(
+          fontSize: fontSize,
+          fontWeight: fontWeight ?? FontWeight.w600,
+          color: foregroundColor,
+        );
 
     final displayedText = uppercase ? text.toUpperCase() : text;
 
     final iconW =
         iconWidget ??
-            (icon != null
-                ? Icon(icon, size: iconSize, color: foregroundColor)
-                : null);
+        (icon != null
+            ? Icon(icon, size: iconSize, color: foregroundColor)
+            : null);
 
     final label = Text(
       displayedText,
@@ -161,15 +165,15 @@ class CustomButton extends StatelessWidget {
     if (iconW != null) {
       return Row(
         mainAxisSize: MainAxisSize.min,
-        children: iconPosition == IconPosition.start
-            ? [iconW, SizedBox(width: iconGap), Flexible(child: label)]
-            : [Flexible(child: label), SizedBox(width: iconGap), iconW],
+        children:
+            iconPosition == IconPosition.start
+                ? [iconW, SizedBox(width: iconGap), Flexible(child: label)]
+                : [Flexible(child: label), SizedBox(width: iconGap), iconW],
       );
     }
 
     return label; // ✅ no Flexible here
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -207,5 +211,49 @@ class CustomButton extends StatelessWidget {
       return SizedBox(width: width, height: height, child: button);
     }
     return button;
+  }
+}
+
+class OutlinePillButton extends StatelessWidget {
+  const OutlinePillButton({
+    super.key,
+    required this.label,
+    required this.onPressed,
+    this.height = 44, // slim like the mock
+    this.borderWidth = 4.5, // thin green outline
+    this.horizontalPadding = 24,
+  });
+
+  final String label;
+  final VoidCallback onPressed;
+  final double height;
+  final double borderWidth;
+  final double horizontalPadding;
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: height,
+      child: OutlinedButton(
+        onPressed: onPressed,
+        style: OutlinedButton.styleFrom(
+          backgroundColor: Colors.white,
+          foregroundColor: AppColors.green,
+          side: BorderSide(color: AppColors.green, width: 4.5),
+          shape: const StadiumBorder(),
+          // full pill
+          padding: EdgeInsets.symmetric(horizontal: horizontalPadding),
+          textStyle: TextStyle(
+            color: AppColors.green,
+            fontSize: tertiary(), // matches your scale
+            fontWeight: FontWeight.w600, // same weight as mock
+          ),
+          minimumSize: Size.zero,
+          // no extra height padding
+          tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+        ),
+        child: Text(label, style: TextStyle(color: AppColors.green)),
+      ),
+    );
   }
 }
