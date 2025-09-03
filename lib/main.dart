@@ -3,12 +3,10 @@ import 'package:get/get.dart';
 
 import 'package:get_storage/get_storage.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:khetihar/HomePages/HomePage.dart';
-import 'package:khetihar/Login%20Registration/book_field_date_time.dart';
-import 'package:khetihar/Login%20Registration/confirm_booking_field_agent.dart';
-import 'package:khetihar/Login%20Registration/notifications.dart';
-import 'package:khetihar/splash_setup/language_screen.dart';
-import 'package:khetihar/splash_setup/splash_screen.dart';
+import 'package:khetihar/AccountsAndSettings/accounts.dart';
+import 'package:khetihar/AccountsAndSettings/internal_pagez/my_orders.dart';
+import 'package:khetihar/AccountsAndSettings/internal_pagez/order_details.dart';
+
 import 'package:khetihar/splash_setup/translations.dart';
 
 import 'Routes/AllRoutes.dart';
@@ -60,8 +58,7 @@ class MyApp extends StatelessWidget {
         ),
       ),
     );
-    // return MaterialApp(
-    //   home: HomePage(),
+    return MaterialApp(home: OrderDetails());
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       theme: theme,

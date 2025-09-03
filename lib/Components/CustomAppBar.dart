@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:khetihar/Theme/AppColors.dart';
 
+import '../Theme/FontSize.dart';
+
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   const CustomAppBar({super.key});
 
@@ -67,4 +69,151 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Size get preferredSize => const Size.fromHeight(kToolbarHeight);
+}
+
+class KCenteredActionsAppBar extends StatelessWidget
+    implements PreferredSizeWidget {
+  const KCenteredActionsAppBar({
+    super.key,
+    required this.title,
+    this.onBack,
+    this.onBell,
+    this.onAvatarTap,
+    this.avatarImage,
+    this.height = 56,
+  });
+
+  final String title;
+  final VoidCallback? onBack;
+  final VoidCallback? onBell;
+  final VoidCallback? onAvatarTap;
+  final ImageProvider? avatarImage;
+  final double height;
+
+  @override
+  Size get preferredSize => Size.fromHeight(height);
+
+  @override
+  Widget build(BuildContext context) {
+    return AppBar(
+      backgroundColor: AppColors.grey,
+      // light bar
+      elevation: 0,
+      scrolledUnderElevation: 0,
+      automaticallyImplyLeading: false,
+      toolbarHeight: height,
+      // subtle bottom divider like your UI
+      shape: const Border(
+        bottom: BorderSide(color: AppColors.greyBorder, width: 1),
+      ),
+      // Build our centered layout inside the real AppBar & SafeArea
+      flexibleSpace: SafeArea(
+        bottom: false,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 12),
+          child: Stack(
+            alignment: Alignment.center,
+            children: [
+              // Center title (truly centered regardless of actions width)
+              Text(
+                title,
+                style: TextStyle(
+                  fontSize: primary(), // 18
+                  fontWeight: FontWeight.w600, // semi-bold
+                  color: AppColors.green,
+                  height: 1.2,
+                ),
+              ),
+
+              // Left circular back
+              Align(
+                alignment: Alignment.centerLeft,
+                child: _CircleIconButton(
+                  icon: Icons.arrow_back_ios_new_rounded,
+                  onTap: onBack ?? () => Navigator.maybePop(context),
+                ),
+              ),
+
+              // Right: bell + avatar
+              Align(
+                alignment: Alignment.centerRight,
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    _CircleIconButton(
+                      icon: Icons.notifications_none_rounded,
+                      onTap: onBell,
+                    ),
+                    const SizedBox(width: 10),
+                    _AvatarCircle(image: avatarImage, onTap: onAvatarTap),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _CircleIconButton extends StatelessWidget {
+  const _CircleIconButton({required this.icon, this.onTap});
+
+  final IconData icon;
+  final VoidCallback? onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      color: Colors.white,
+      shape: const CircleBorder(),
+      child: InkWell(
+        customBorder: const CircleBorder(),
+        onTap: onTap,
+        child: Container(
+          width: 32,
+          height: 32,
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            border: Border.all(color: AppColors.greyBorder, width: 1),
+          ),
+          alignment: Alignment.center,
+          child: Icon(icon, size: 20, color: AppColors.green),
+        ),
+      ),
+    );
+  }
+}
+
+class _AvatarCircle extends StatelessWidget {
+  const _AvatarCircle({this.image, this.onTap});
+
+  final ImageProvider? image;
+  final VoidCallback? onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      color: Colors.white,
+      shape: const CircleBorder(),
+      child: InkWell(
+        customBorder: const CircleBorder(),
+        onTap: onTap,
+        child: Container(
+          width: 32,
+          height: 32,
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            border: Border.all(color: AppColors.greyBorder, width: 1),
+          ),
+          clipBehavior: Clip.antiAlias,
+          child:
+              image == null
+                  ? const Icon(Icons.person, color: AppColors.green, size: 20)
+                  : Image(image: image!, fit: BoxFit.cover),
+        ),
+      ),
+    );
+  }
 }
