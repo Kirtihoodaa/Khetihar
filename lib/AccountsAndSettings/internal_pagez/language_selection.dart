@@ -1,34 +1,35 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:khetihar/Components/CustomAppBar.dart';
+import 'package:khetihar/splash_setup/language_grid.dart';
 import '../../Theme/AppColors.dart';
 import '../../Theme/FontSize.dart';
-import 'language_grid.dart';
 
-class LanguageScreen extends StatefulWidget {
-  const LanguageScreen({super.key});
+class UpdateLanguageScreen extends StatefulWidget {
+  const UpdateLanguageScreen({super.key});
 
   @override
-  State<LanguageScreen> createState() => _LanguageScreenState();
+  State<UpdateLanguageScreen> createState() => _UpdateLanguageScreenState();
 }
 
-class _LanguageScreenState extends State<LanguageScreen> {
+class _UpdateLanguageScreenState extends State<UpdateLanguageScreen> {
   int? _selected;
 
-  void _onNext() {
+  void _onUpdate() {
     if (_selected == null) return;
     final chosen = languages[_selected!];
     final box = GetStorage();
     box.write('lang', chosen.key);
     Get.updateLocale(chosen.locale);
-
-    Get.offAllNamed('/onboarding'); // navigate forward
+    Get.back();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
+      appBar: KCenteredActionsAppBar(title: "Language "),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(16),
@@ -54,7 +55,7 @@ class _LanguageScreenState extends State<LanguageScreen> {
                 width: double.infinity,
                 height: 52,
                 child: ElevatedButton(
-                  onPressed: _selected == null ? null : _onNext,
+                  onPressed: _selected == null ? null : _onUpdate,
                   style: ElevatedButton.styleFrom(
                     backgroundColor: AppColors.green,
                     foregroundColor: Colors.white,
@@ -63,7 +64,7 @@ class _LanguageScreenState extends State<LanguageScreen> {
                     ),
                   ),
                   child: Text(
-                    "Next",
+                    "Update Language",
                     style: TextStyle(
                       fontSize: tertiary(),
                       fontWeight: FontWeight.w600,
