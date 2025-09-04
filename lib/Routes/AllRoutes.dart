@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:khetihar/AccountsAndSettings/Routes.dart';
 import 'package:khetihar/Login%20Registration/BookField.dart';
 import 'package:khetihar/Login%20Registration/Field.dart';
 import 'package:khetihar/Login%20Registration/book_field_date_time.dart';
@@ -89,5 +90,6 @@ final List<GetPage> allPages = [
     transition: Transition.cupertino,
     transitionDuration: const Duration(milliseconds: 400),
   ),
-  ...homepageroute
+  ...homepageroute,
+  ...allAccountPages,
 ];
