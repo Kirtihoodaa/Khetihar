@@ -91,34 +91,40 @@ class Accounts extends StatelessWidget {
               Container(
                 padding: EdgeInsets.symmetric(horizontal: 12),
                 child: AccountSettingsSection(
-                  items: const [
-                    SettingsItem(
+                  items: [
+                    const SettingsItem(
                       label: 'Edit Profile',
                       iconData: Icons.person_outline,
                     ),
-                    SettingsItem(
+                    const SettingsItem(
                       label: 'Saved Addresses',
                       iconData: Icons.location_on_outlined,
                     ),
                     SettingsItem(
                       label: 'Language',
                       iconData: Icons.translate_rounded,
+                      onTap: () {
+                        Get.toNamed('/languageSelectionAccount');
+                      },
                     ),
-                    SettingsItem(
+                    const SettingsItem(
                       label: 'Saved Cards',
                       iconData: Icons.credit_card_outlined,
                     ),
-                    SettingsItem(
+                    const SettingsItem(
                       label: 'Change Password',
                       iconData: Icons.lock_reset_rounded,
                     ),
-                    SettingsItem(
+                    const SettingsItem(
                       label: 'Notification Settings',
                       iconData: Icons.notifications_none_rounded,
                     ),
                     SettingsItem(
                       label: 'Help & Support',
                       iconData: Icons.headset_mic_outlined,
+                      onTap: () {
+                        Get.toNamed('/helpsupportAccount');
+                      },
                     ),
                   ],
                 ),
