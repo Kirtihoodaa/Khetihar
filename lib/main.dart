@@ -7,7 +7,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:khetihar/splash_setup/translations.dart';
 
 import 'Routes/AllRoutes.dart';
-import 'SplashScreen/OnBording.dart';
+
 import 'Theme/AppColors.dart';
 
 Future<void> main() async {

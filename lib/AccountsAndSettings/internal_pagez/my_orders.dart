@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 
 import 'package:intl/intl.dart';
+import 'package:khetihar/AccountsAndSettings/internal_pagez/order_details.dart';
 
 import '../../Theme/AppColors.dart';
 import '../../Theme/FontSize.dart';
@@ -27,7 +30,9 @@ class MyOrders extends StatelessWidget {
               date: DateTime(2025, 7, 1),
               productName: 'Wheat Seed',
               imageProvider: const AssetImage('Assets/Seeds/rice.png'),
-              onTap: () {},
+              onTap: () {
+                Get.to(() => OrderDetails());
+              },
               onReviewTap: () {},
             ),
             OrderCard(
@@ -36,7 +41,9 @@ class MyOrders extends StatelessWidget {
               date: DateTime(2025, 7, 1),
               productName: 'Wheat Seed',
               imageProvider: const AssetImage('Assets/Seeds/rice.png'),
-              onTap: () {},
+              onTap: () {
+                Get.to(() => OrderDetails());
+              },
               // onReviewTap omitted (disabled state like mock)
             ),
           ],

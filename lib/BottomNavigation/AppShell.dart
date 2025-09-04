@@ -1,5 +1,6 @@
 //using PageView.jumpToPage() or  indexedstack
 import 'package:flutter/material.dart';
+import 'package:khetihar/AccountsAndSettings/accounts.dart';
 import 'package:khetihar/BottomNavigation/BottomNavigation.dart';
 import 'package:khetihar/Community/Community.dart';
 import 'package:khetihar/HomePages/HomePage.dart';
@@ -22,6 +23,7 @@ class _AppShellState extends State<AppShell> {
     // ChatScreen(),
     // VideosScreen(),
     // ProfileScreen(),
+    Accounts(),
   ];
 
   void _onTap(int index) {
