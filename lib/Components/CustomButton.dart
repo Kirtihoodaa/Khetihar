@@ -222,6 +222,11 @@ class OutlinePillButton extends StatelessWidget {
     this.height = 44, // slim like the mock
     this.borderWidth = 4.5, // thin green outline
     this.horizontalPadding = 24,
+    this.icon,
+    this.iconWidget,
+    this.iconSize = 18,
+    this.iconGap = 8,
+    this.iconPosition = IconPosition.start,
   });
 
   final String label;
@@ -230,8 +235,42 @@ class OutlinePillButton extends StatelessWidget {
   final double borderWidth;
   final double horizontalPadding;
 
+  // ✅ new icon props
+  final IconData? icon;
+  final Widget? iconWidget;
+  final double iconSize;
+  final double iconGap;
+  final IconPosition iconPosition;
+
   @override
   Widget build(BuildContext context) {
+    final effectiveIcon =
+        iconWidget ??
+            (icon != null
+                ? Icon(icon, size: iconSize, color: AppColors.green)
+                : null);
+
+    final textWidget = Text(
+      label,
+      style: TextStyle(
+        color: AppColors.green,
+        fontSize: tertiary(),
+        fontWeight: FontWeight.w600,
+      ),
+    );
+
+    Widget child;
+    if (effectiveIcon != null) {
+      child = Row(
+        mainAxisSize: MainAxisSize.min,
+        children: iconPosition == IconPosition.start
+            ? [effectiveIcon, SizedBox(width: iconGap), textWidget]
+            : [textWidget, SizedBox(width: iconGap), effectiveIcon],
+      );
+    } else {
+      child = textWidget;
+    }
+
     return SizedBox(
       height: height,
       child: OutlinedButton(
@@ -239,21 +278,20 @@ class OutlinePillButton extends StatelessWidget {
         style: OutlinedButton.styleFrom(
           backgroundColor: Colors.white,
           foregroundColor: AppColors.green,
-          side: BorderSide(color: AppColors.green, width: 4.5),
-          shape: const StadiumBorder(),
-          // full pill
+          side: BorderSide(color: AppColors.green, width: borderWidth),
+          shape: const StadiumBorder(), // full pill
           padding: EdgeInsets.symmetric(horizontal: horizontalPadding),
           textStyle: TextStyle(
             color: AppColors.green,
-            fontSize: tertiary(), // matches your scale
-            fontWeight: FontWeight.w600, // same weight as mock
+            fontSize: tertiary(),
+            fontWeight: FontWeight.w600,
           ),
           minimumSize: Size.zero,
-          // no extra height padding
           tapTargetSize: MaterialTapTargetSize.shrinkWrap,
         ),
-        child: Text(label, style: TextStyle(color: AppColors.green)),
+        child: child,
       ),
     );
   }
 }
+
