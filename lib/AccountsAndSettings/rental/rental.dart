@@ -1,49 +1,42 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-
 import 'package:intl/intl.dart';
-import 'package:khetihar/AccountsAndSettings/internal_pagez/order_details.dart';
+import 'package:khetihar/AccountsAndSettings/rental/rent_details.dart';
+import 'package:khetihar/Components/CustomAppBar.dart';
 
 import '../../Theme/AppColors.dart';
 import '../../Theme/FontSize.dart';
-import '../../Components/CustomAppBar.dart';
 
-class MyOrders extends StatelessWidget {
-  const MyOrders({super.key});
+class Rental extends StatelessWidget {
+  const Rental({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: KCenteredActionsAppBar(
-        title: "My Orders",
-        avatarImage: AssetImage('Assets/HomeScreens/Logo.png'),
-      ),
+      appBar: KCenteredActionsAppBar(title: "Rental"),
       body: Container(
         padding: EdgeInsets.symmetric(vertical: 10),
         child: Column(
           children: [
-            OrderCard(
+            RentCard(
               orderId: 'FO-39845',
-              status: OrderStatus.delivered,
+              status: RentStatus.delivered,
               date: DateTime(2025, 7, 1),
               productName: 'Wheat Seed',
               imageProvider: const AssetImage('Assets/Seeds/rice.png'),
               onTap: () {
-                Get.to(() => OrderDetails());
+                Get.to(() => RentDetails());
               },
               onReviewTap: () {},
             ),
-            OrderCard(
+            RentCard(
               orderId: 'FO-39845',
-              status: OrderStatus.shipped,
+              status: RentStatus.shipped,
               date: DateTime(2025, 7, 1),
               productName: 'Wheat Seed',
               imageProvider: const AssetImage('Assets/Seeds/rice.png'),
-              onTap: () {
-                Get.to(() => OrderDetails());
-              },
+              onTap: () {},
               // onReviewTap omitted (disabled state like mock)
             ),
           ],
@@ -53,10 +46,10 @@ class MyOrders extends StatelessWidget {
   }
 }
 
-enum OrderStatus { delivered, shipped }
+enum RentStatus { delivered, shipped }
 
-class OrderCard extends StatelessWidget {
-  const OrderCard({
+class RentCard extends StatelessWidget {
+  const RentCard({
     super.key,
     required this.orderId,
     required this.status,
@@ -68,7 +61,7 @@ class OrderCard extends StatelessWidget {
   });
 
   final String orderId;
-  final OrderStatus status;
+  final RentStatus status;
   final DateTime date;
   final String productName;
   final ImageProvider imageProvider;
@@ -80,12 +73,11 @@ class OrderCard extends StatelessWidget {
     // exact tones used in the UI
     const blue = Color(0xFF2F6BE6); // "Shipped"
     const starGrey = Color(0xFFCfd3DA); // stars
-    final isDelivered = status == OrderStatus.delivered;
+    final isDelivered = status == RentStatus.delivered;
     final statusColor = isDelivered ? Colors.green : blue;
 
     return InkWell(
       borderRadius: BorderRadius.circular(14),
-      onTap: onTap,
       child: Container(
         margin: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
         padding: const EdgeInsets.fromLTRB(16, 14, 12, 14),
@@ -106,7 +98,7 @@ class OrderCard extends StatelessWidget {
           children: [
             // Title (use en-dash like mock)
             Text(
-              'Order ID – #$orderId',
+              'Rent ID – #$orderId',
               style: TextStyle(
                 fontSize: secondary(), // 16
                 fontWeight: FontWeight.w700,
@@ -190,10 +182,13 @@ class OrderCard extends StatelessWidget {
                     ],
                   ),
                 ),
-                Icon(
-                  Icons.chevron_right,
-                  size: 20, // <= 20
-                  color: Colors.black.withOpacity(0.45),
+                GestureDetector(
+                  onTap: onTap,
+                  child: Icon(
+                    Icons.chevron_right,
+                    size: 20, // <= 20
+                    color: Colors.black.withOpacity(0.45),
+                  ),
                 ),
               ],
             ),

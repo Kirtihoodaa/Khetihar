@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:khetihar/AccountsAndSettings/internal_pagez/order_status_timeline.dart';
+import 'package:khetihar/AccountsAndSettings/rental/rent_summary_card.dart';
 import 'package:khetihar/Components/CustomAppBar.dart';
 import 'package:khetihar/Theme/AppColors.dart';
 
 import 'package:intl/intl.dart';
 
 import '../../Theme/FontSize.dart';
-import 'order_summary_card.dart';
+import '../order_pages/order_details.dart';
+import '../order_pages/order_status_timeline.dart';
+import '../order_pages/order_summary_card.dart';
 
-class OrderDetails extends StatelessWidget {
-  OrderDetails({super.key});
+class RentDetails extends StatelessWidget {
+  RentDetails({super.key});
 
   final steps = [
     TimelineStep(
@@ -44,7 +46,7 @@ class OrderDetails extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: KCenteredActionsAppBar(
-        title: "Order Details",
+        title: "Rent Details",
         avatarImage: AssetImage("Assets/HomeScreens/Logo.png"),
       ),
       backgroundColor: Colors.white,
@@ -54,7 +56,7 @@ class OrderDetails extends StatelessWidget {
             children: [
               Container(
                 padding: EdgeInsets.symmetric(vertical: 12, horizontal: 16),
-                child: OrderEtaSectionExact(
+                child: RentEtaSectionExact(
                   orderId: 'FO-39845',
                   orderDate: DateTime(2025, 7, 1),
                   statusText: 'Shipped',
@@ -77,32 +79,17 @@ class OrderDetails extends StatelessWidget {
               ),
               SizedBox(height: 16),
               Container(
-                padding: EdgeInsets.symmetric(horizontal: 6),
-                child: OrderSummaryCard(
-                  items: [
-                    OrderSummaryItem(
-                      name: 'Wheat Seed',
-                      priceText: 'INR 146',
-                      qty: 2,
-                      image: const AssetImage('Assets/Seeds/OilSeed.png'),
-                    ),
-                    OrderSummaryItem(
-                      name: 'Turmeric',
-                      priceText: 'INR 146',
-                      qty: 2,
-                      image: const AssetImage('Assets/Seeds/OilSeed.png'),
-                    ),
-                    OrderSummaryItem(
-                      name: 'Berseem',
-                      priceText: 'INR 146',
-                      qty: 2,
-                      image: const AssetImage('Assets/Seeds/OilSeed.png'),
-                    ),
-                  ],
-
-                  subtotalText: 'INR 500',
+                padding: EdgeInsets.symmetric(horizontal: 2),
+                child: RentSummaryCard(
+                  itemName: 'Power Tiller',
+                  priceText: 'INR 1500',
+                  rentalDays: 3,
+                  returnDateText: '12-07-2025',
+                  securityDepositText: 'INR 2000',
+                  subtotalText: 'INR 1500',
                   shippingText: 'Free',
-                  totalText: 'INR 500',
+                  totalText: 'INR 3500',
+                  image: const AssetImage('Assets/Seeds/OilSeed.png'),
                 ),
               ),
             ],
@@ -114,8 +101,8 @@ class OrderDetails extends StatelessWidget {
 }
 
 // ===== Order header + ETA card (exact-match) =====
-class OrderEtaSectionExact extends StatelessWidget {
-  const OrderEtaSectionExact({
+class RentEtaSectionExact extends StatelessWidget {
+  const RentEtaSectionExact({
     super.key,
     required this.orderId, // e.g. 'FO-39845'
     required this.orderDate, // e.g. DateTime(2025, 7, 1)
@@ -148,7 +135,7 @@ class OrderEtaSectionExact extends StatelessWidget {
           children: [
             // Title (en dash, bold, dark)
             Text(
-              'Order ID – #$orderId',
+              'Rent ID – #$orderId',
               style: TextStyle(
                 fontSize: primary(), // 18
                 fontWeight: FontWeight.w700, // bold like image
@@ -230,150 +217,6 @@ class OrderEtaSectionExact extends StatelessWidget {
           ],
         ),
       ),
-    );
-  }
-}
-
-/// Drop-in section that renders:
-///  - Shipping Address (title + pin icon + multiline address)
-///  - Payment Information (title + card icon + brand+last4 + expiry)
-class ShippingAndPaymentDetails extends StatelessWidget {
-  const ShippingAndPaymentDetails({
-    super.key,
-    required this.addressText,
-    required this.cardBrand, // e.g. 'Visa'
-    required this.cardLast4, // e.g. '4242'
-    required this.cardExpiry, // e.g. '12/25'
-    this.padding = const EdgeInsets.fromLTRB(16, 8, 16, 0),
-  });
-
-  final String addressText;
-  final String cardBrand;
-  final String cardLast4;
-  final String cardExpiry;
-  final EdgeInsets padding;
-
-  @override
-  Widget build(BuildContext context) {
-    // lock scaling for strict visual match (optional)
-    final mq = MediaQuery.of(context).copyWith(textScaleFactor: 1.0);
-
-    return MediaQuery(
-      data: mq,
-      child: Padding(
-        padding: padding,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // Shipping Address
-            _SectionTitle('Shipping Address'),
-            const SizedBox(height: 6),
-            _IconBlock(
-              icon: Icons.location_on_outlined,
-              child: Text(
-                addressText,
-                style: TextStyle(
-                  fontSize: secondary(), // 16
-                  color: Colors.black.withOpacity(0.80), // like screenshot
-                  height: 1.35,
-                ),
-              ),
-            ),
-
-            const SizedBox(height: 18),
-
-            // Payment Information
-            _SectionTitle('Payment Information'),
-            const SizedBox(height: 6),
-            _IconBlock(
-              icon: Icons.credit_card_outlined,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  // "Visa •••• 4242"
-                  RichText(
-                    text: TextSpan(
-                      style: TextStyle(
-                        fontSize: secondary(), // 16
-                        color: Colors.black87,
-                        height: 1.2,
-                      ),
-                      children: [
-                        TextSpan(
-                          text: '$cardBrand ',
-                          style: const TextStyle(fontWeight: FontWeight.w700),
-                        ),
-                        const TextSpan(text: '•••• '),
-                        TextSpan(
-                          text: cardLast4,
-                          style: const TextStyle(fontWeight: FontWeight.w700),
-                        ),
-                      ],
-                    ),
-                  ),
-                  const SizedBox(height: 8),
-                  Text(
-                    'Expires $cardExpiry',
-                    style: TextStyle(
-                      fontSize: tertiary(), // 14
-                      color: Colors.black.withOpacity(0.65),
-                      height: 1.3,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-/// Green section title (18 / w600)
-class _SectionTitle extends StatelessWidget {
-  const _SectionTitle(this.text);
-
-  final String text;
-
-  @override
-  Widget build(BuildContext context) {
-    return Text(
-      text,
-      style: TextStyle(
-        fontSize: primary(), // 18
-        fontWeight: FontWeight.w600,
-        color: AppColors.green,
-        height: 1.2,
-      ),
-    );
-  }
-}
-
-/// Left icon gutter + content (keeps icon aligned to both lines)
-class _IconBlock extends StatelessWidget {
-  const _IconBlock({required this.icon, required this.child});
-
-  final IconData icon;
-  final Widget child;
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        // Icon column
-        SizedBox(
-          width: 28,
-          child: Align(
-            alignment: Alignment.topLeft,
-            child: Icon(icon, size: 20, color: AppColors.green),
-          ),
-        ),
-        const SizedBox(width: 4),
-        // Texts
-        Expanded(child: child),
-      ],
     );
   }
 }

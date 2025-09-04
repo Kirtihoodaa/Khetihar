@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:khetihar/AccountsAndSettings/internal_pagez/my_orders.dart';
 import 'package:khetihar/AccountsAndSettings/quick_action_grid.dart';
+import 'package:khetihar/AccountsAndSettings/rental/rental.dart';
+import 'package:khetihar/AccountsAndSettings/subscriptions/subscription.dart';
 import 'package:khetihar/Components/CustomButton.dart';
 
 import '../Theme/AppColors.dart';
 import '../Theme/FontSize.dart';
+import 'order_pages/my_orders.dart';
 
 class Accounts extends StatelessWidget {
   const Accounts({super.key});
@@ -59,6 +60,9 @@ class Accounts extends StatelessWidget {
                         size: 22,
                         color: AppColors.green,
                       ),
+                      onTap: () {
+                        Get.to(() => Subscription());
+                      },
                     ),
                     QuickActionItem(
                       label: 'Rental',
@@ -67,6 +71,9 @@ class Accounts extends StatelessWidget {
                         size: 22,
                         color: AppColors.green,
                       ),
+                      onTap: () {
+                        Get.to(() => Rental());
+                      },
                     ),
                     QuickActionItem(
                       label: 'Loan Request',

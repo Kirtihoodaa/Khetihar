@@ -28,7 +28,7 @@ class OrderSummaryCard extends StatelessWidget {
       margin: margin,
       padding: padding,
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: Colors.grey.shade100,
         borderRadius: BorderRadius.circular(12),
         border: Border.all(color: AppColors.greyBorder, width: 1),
         boxShadow: [
