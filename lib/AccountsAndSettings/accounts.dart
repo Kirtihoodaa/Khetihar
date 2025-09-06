@@ -82,6 +82,9 @@ class Accounts extends StatelessWidget {
                         size: 22,
                         color: AppColors.green,
                       ),
+                      onTap: () {
+                        Get.toNamed('/loanAccount');
+                      },
                     ),
                     QuickActionItem(
                       label: 'Bookings',
@@ -99,13 +102,20 @@ class Accounts extends StatelessWidget {
                 padding: EdgeInsets.symmetric(horizontal: 12),
                 child: AccountSettingsSection(
                   items: [
-                    const SettingsItem(
+                    SettingsItem(
                       label: 'Edit Profile',
                       iconData: Icons.person_outline,
+                      onTap: () {
+                        Get.toNamed('/editProfileAccount');
+                      },
                     ),
-                    const SettingsItem(
+                    SettingsItem(
                       label: 'Saved Addresses',
                       iconData: Icons.location_on_outlined,
+
+                      onTap: () {
+                        Get.toNamed('/addressAccount');
+                      },
                     ),
                     SettingsItem(
                       label: 'Language',
@@ -114,17 +124,26 @@ class Accounts extends StatelessWidget {
                         Get.toNamed('/languageSelectionAccount');
                       },
                     ),
-                    const SettingsItem(
+                    SettingsItem(
                       label: 'Saved Cards',
                       iconData: Icons.credit_card_outlined,
+                      onTap: () {
+                        Get.toNamed('/savedCardsAccount');
+                      },
                     ),
-                    const SettingsItem(
+                    SettingsItem(
                       label: 'Change Password',
                       iconData: Icons.lock_reset_rounded,
+                      onTap: () {
+                        Get.toNamed('/changePasswordAccount');
+                      },
                     ),
-                    const SettingsItem(
+                    SettingsItem(
                       label: 'Notification Settings',
                       iconData: Icons.notifications_none_rounded,
+                      onTap: () {
+                        Get.toNamed('/notifiactionAccount');
+                      },
                     ),
                     SettingsItem(
                       label: 'Help & Support',
