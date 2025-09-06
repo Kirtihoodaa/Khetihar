@@ -96,7 +96,7 @@ class KCenteredActionsAppBar extends StatelessWidget
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      backgroundColor: AppColors.grey,
+      backgroundColor: AppColors.secondarygrey,
       // light bar
       elevation: 0,
       scrolledUnderElevation: 0,

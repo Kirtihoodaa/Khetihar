@@ -14,7 +14,7 @@ class Accounts extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: KAppBar(title: "Accounts"),
+      appBar: KAppBar(title: "Account"),
       backgroundColor: Colors.white,
       body: Container(
         padding: EdgeInsets.symmetric(horizontal: 5),
@@ -149,6 +149,7 @@ class Accounts extends StatelessWidget {
                   ),
                 ),
               ),
+              SizedBox(height: 130),
             ],
           ),
         ),
@@ -177,7 +178,7 @@ class KAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      backgroundColor: AppColors.grey,
+      backgroundColor: AppColors.secondarygrey,
       elevation: 0,
       scrolledUnderElevation: 0,
       automaticallyImplyLeading: false,
@@ -199,9 +200,9 @@ class KAppBar extends StatelessWidget implements PreferredSizeWidget {
           height: 1.2,
         ),
       ),
-      shape: const Border(
-        bottom: BorderSide(color: AppColors.greyBorder, width: 1),
-      ),
+      // shape: const Border(
+      //   bottom: BorderSide(color: AppColors.greyBorder, width: 1),
+      // ),
     );
   }
 }

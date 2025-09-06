@@ -32,7 +32,6 @@ class ProductDetailsPage extends StatelessWidget {
                     bottomRight: Radius.circular(20),
                   ),
                   child: Image.asset(
-                    // keep same as card (asset vs network)
                     product['image'],
                     fit: BoxFit.cover,
                     width: double.infinity,

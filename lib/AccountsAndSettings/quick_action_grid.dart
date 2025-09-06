@@ -93,8 +93,8 @@ class _OutlineTileExact extends StatelessWidget {
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(
-                    fontSize: primary(), // 16 to match mock
-                    fontWeight: FontWeight.w600, // semi-bold
+                    fontSize: secondary(),
+                    fontWeight: FontWeight.w600,
                     color: Colors.black87,
                     height: 1.1,
                   ),
@@ -147,7 +147,7 @@ class AccountSettingsSection extends StatelessWidget {
             physics: const NeverScrollableScrollPhysics(),
             shrinkWrap: true,
             itemCount: items.length,
-            separatorBuilder: (_, __) => const SizedBox(height: 12),
+            separatorBuilder: (_, __) => const SizedBox(height: 2),
             // vertical gap
             itemBuilder: (_, i) => _SettingsTileExact(item: items[i]),
           ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:khetihar/Components/CustomButton.dart';
 import 'package:khetihar/Theme/AppColors.dart';
 import 'package:khetihar/Theme/FontSize.dart';
 
@@ -19,7 +20,9 @@ class ReusableProductCard extends StatefulWidget {
   // flags
   final bool showFavorite;
   final bool showRating;
-  final bool showButton;
+  final bool showRentButton;
+  final bool showCartButton;
+
   final double? imageHeight;
   final BorderRadius? borderRadius;
   final List<BoxShadow>? boxShadow;
@@ -37,7 +40,8 @@ class ReusableProductCard extends StatefulWidget {
     this.onFavoriteChanged,
     this.showFavorite = true,
     this.showRating = true,
-    this.showButton = true,
+    this.showRentButton = true,
+    this.showCartButton = true,
     this.imageHeight = 120,
     this.borderRadius,
     this.boxShadow,
@@ -51,6 +55,7 @@ class ReusableProductCard extends StatefulWidget {
 class _ReusableProductCardState extends State<ReusableProductCard> {
   bool _added = false;
   bool _favorited = false;
+  bool _isRented = false;
 
   @override
   Widget build(BuildContext context) {
@@ -122,12 +127,13 @@ class _ReusableProductCardState extends State<ReusableProductCard> {
 
                     const SizedBox(height: 8),
 
-                    // Rating + Cart Button
+                    // Rating + Rent Now / Cart Button
                     Row(
                       children: [
                         if (widget.showRating) _buildRatingSection(),
-                        const Spacer(),
-                        if (widget.showButton) _buildCartButton(),
+                        Spacer(),
+                        if (widget.showRentButton) _buildRentButton(),
+                        if (widget.showCartButton) _buildCartButton(),
                       ],
                     ),
                   ],
@@ -167,17 +173,20 @@ class _ReusableProductCardState extends State<ReusableProductCard> {
                 setState(() => _favorited = !_favorited);
                 widget.onFavoriteChanged?.call(_favorited);
               },
-              child: const CircleAvatar(
+              child: CircleAvatar(
                 radius: 14,
-                backgroundColor: Colors.white,
-                child: Icon(Icons.favorite_border, size: 16, color: Colors.grey),
+                backgroundColor: Colors.white.withOpacity(0.4),
+                child: Icon(
+                  _favorited ? Icons.favorite_rounded : Icons.favorite_rounded,
+                  size: 20,
+                  color: _favorited ? Colors.red : Colors.white,
+                ),
               ),
             ),
           ),
       ],
     );
   }
-
 
   Widget _buildRatingSection() {
     return Row(
@@ -214,6 +223,25 @@ class _ReusableProductCardState extends State<ReusableProductCard> {
           color: _added ? Colors.white : AppColors.green,
         ),
       ),
+    );
+  }
+
+  Widget _buildRentButton() {
+    return CustomButton(
+      text: _isRented ? "Rented" : "Rent Now",
+      onPressed: () {
+        setState(() {
+          _isRented = !_isRented;
+        });
+      },
+      width: 80,
+      height: 30,
+      variant: _isRented ? ButtonVariant.filled : ButtonVariant.filled,
+      backgroundColor: _isRented ? AppColors.green : AppColors.grey,
+      foregroundColor: _isRented ? Colors.white : Colors.black,
+      fontSize: medium(),
+      radius: 40,
+      padding: EdgeInsets.symmetric(vertical: 4, horizontal: 10),
     );
   }
 }
