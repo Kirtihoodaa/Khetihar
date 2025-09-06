@@ -8,22 +8,25 @@ class FertilizerPesticideController extends GetxController {
 
   // Data for fertilizer and pesticide categories
   final List<Map<String, String>> fertilizerCategories = [
-    {"image": "Assets/Seeds/plant.png", "title": "Hand"},
-    {"image": "Assets/Seeds/plant.png", "title": "Cutting"},
-    {"image": "Assets/Seeds/plant.png", "title": "Measuring"},
-    {"image": "Assets/Seeds/plant.png", "title": "Irrigation"},
-    {"image": "Assets/Seeds/plant.png", "title": "Planting"},
-    {"image": "Assets/Seeds/plant.png", "title": "Weeding"},
-    {"image": "Assets/Seeds/plant.png", "title": "Soil Preparation"},
+    {"image": "Assets/Seeds/plant.png", "title": "Organic"},
+    {"image": "Assets/Seeds/plant.png", "title": "Chemical"},
+    {"image": "Assets/Seeds/plant.png", "title": "Bio"},
+    {"image": "Assets/Seeds/plant.png", "title": "Nitrogen-Based"},
+    {"image": "Assets/Seeds/plant.png", "title": "Slow-release"},
+    {"image": "Assets/Seeds/plant.png", "title": "Composite"},
+    {"image": "Assets/Seeds/plant.png", "title": "Liquid"},
+    {"image": "Assets/Seeds/plant.png", "title": "Phosphate"},
+    {"image": "Assets/Seeds/plant.png", "title": "Foliar"},
+    {"image": "Assets/Seeds/plant.png", "title": "Potash"},
   ];
 
   final List<Map<String, String>> pesticideCategories = const [
-    {"image": "Assets/Seeds/chemical.png", "title": "Sprayers"},
-    {"image": "Assets/Seeds/chemical.png", "title": "Power Tiller"},
-    {"image": "Assets/Seeds/chemical.png", "title": "Harvester"},
-    {"image": "Assets/Seeds/chemical.png", "title": "Seed Drill"},
-    {"image": "Assets/Seeds/chemical.png", "title": "Thresher"},
-    {"image": "Assets/Seeds/chemical.png", "title": "Rotavator"},
+    {"image": "Assets/Seeds/chemical.png", "title": "Insecticides"},
+    {"image": "Assets/Seeds/chemical.png", "title": "Systemic"},
+    {"image": "Assets/Seeds/chemical.png", "title": "Soil"},
+    {"image": "Assets/Seeds/chemical.png", "title": "Seed Treatment"},
+    {"image": "Assets/Seeds/chemical.png", "title": "Fungicides"},
+    {"image": "Assets/Seeds/chemical.png", "title": "Bio"},
   ];
 
   final List<Map<String, dynamic>> fertilizerProducts = [
@@ -106,8 +109,12 @@ class FertilizerPesticideController extends GetxController {
 
   // Active products and categories based on the selected tab
   List<Map<String, dynamic>> get activeProducts =>
-      selectedTab.value == FPTab.fertilizer ? fertilizerProducts : pesticideProducts;
+      selectedTab.value == FPTab.fertilizer
+          ? fertilizerProducts
+          : pesticideProducts;
 
   List<Map<String, String>> get activeCategories =>
-      selectedTab.value == FPTab.fertilizer ? fertilizerCategories : pesticideCategories;
+      selectedTab.value == FPTab.fertilizer
+          ? fertilizerCategories
+          : pesticideCategories;
 }

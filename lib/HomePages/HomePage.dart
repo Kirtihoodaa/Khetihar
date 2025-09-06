@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:khetihar/Components/CustomAppBar.dart';
+import 'package:khetihar/HomePages/AgricultureTools/Agriculture.dart';
 import 'package:khetihar/HomePages/BuySeeds/BuySeeds.dart';
 import 'package:khetihar/HomePages/FretiliserAndPest/FertiliserAndPest.dart';
 import 'package:khetihar/Theme/AppColors.dart';
@@ -92,6 +93,9 @@ class HomePage extends StatelessWidget {
                     icon: Icons.handyman_outlined,
                     label: 'Agri Tools',
                     color: Color(0xFFEA580C),
+                    onTap: () {
+                      Get.to(() => AgricultureTools());
+                    },
                   ),
                   _ServiceChip(
                     icon: Icons.biotech_outlined,
