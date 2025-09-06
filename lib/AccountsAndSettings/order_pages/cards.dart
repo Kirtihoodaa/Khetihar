@@ -56,7 +56,7 @@ class SavedCardsScreen extends StatelessWidget {
         borderRadius: BorderRadius.circular(12),
         side: BorderSide(color: Colors.grey.shade300),
       ),
-      color: AppColors.grey,
+      color: Colors.white,
       child: Padding(
         padding: const EdgeInsets.all(14),
         child: Row(
