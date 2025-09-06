@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:khetihar/Components/CustomAppBar.dart';
 import 'package:khetihar/HomePages/BuySeeds/BuySeeds.dart';
+import 'package:khetihar/HomePages/FretiliserAndPest/FertiliserAndPest.dart';
 import 'package:khetihar/Theme/AppColors.dart';
 import 'package:khetihar/Components/CustomButton.dart';
 import 'package:khetihar/Theme/FontSize.dart';
@@ -83,6 +84,9 @@ class HomePage extends StatelessWidget {
                     icon: Icons.science_outlined,
                     label: 'Fert & Pest',
                     color: Color(0xFF2563EB),
+                    onTap: () {
+                      Get.to(() => FertilizerAndPest());
+                    },
                   ),
                   _ServiceChip(
                     icon: Icons.handyman_outlined,
@@ -212,7 +216,7 @@ class HomePage extends StatelessWidget {
               subtitle: "Apply before Oct 30",
             ),
 
-            const SizedBox(height: 22),
+            const SizedBox(height: 100),
           ],
         ),
       ),

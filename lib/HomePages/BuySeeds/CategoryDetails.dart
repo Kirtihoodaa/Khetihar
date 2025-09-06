@@ -99,13 +99,12 @@ class _CategoryDetailPageState extends State<CategoryDetailPage> {
       backgroundColor: Colors.white,
       appBar: Secondaryappbar(),
       body: SingleChildScrollView(
-        padding: const EdgeInsets.all(10),
+        padding: EdgeInsets.all(10),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Search Bar (rounded + green search button)
             Container(
-              padding: const EdgeInsets.symmetric(horizontal: 10),
+              padding: EdgeInsets.symmetric(horizontal: 10),
               decoration: BoxDecoration(
                 color: AppColors.secondarygrey,
                 borderRadius: BorderRadius.circular(28),
@@ -157,38 +156,35 @@ class _CategoryDetailPageState extends State<CategoryDetailPage> {
             const SizedBox(height: 12),
 
             // Products Grid (
-      ReusableGridView<Map<String, dynamic>>(
-        items: _visible,
-        crossAxisCount: 2,
-        crossAxisSpacing: 16,
-        mainAxisSpacing: 16,
-        childAspectRatio: 0.66,
-        itemBuilder: (context, p, i) {
-          final heroTag = '${p['id'] ?? p['title']}_$i'; // stable & unique
+            ReusableGridView<Map<String, dynamic>>(
+              items: _visible,
+              crossAxisCount: 2,
+              crossAxisSpacing: 16,
+              mainAxisSpacing: 16,
+              childAspectRatio: 0.66,
+              itemBuilder: (context, p, i) {
+                final heroTag = '${p['id'] ?? p['title']}_$i';
 
-          return ReusableProductCard(
-            image: p['image'], // this is an asset path in your card
-            title: p['title'],
-            price: p['price'],
-            desc: p['desc'],
-            rating: p['rating'],
-            reviewCount: p['reviewCount'],
-            heroTag: heroTag,
-            onCardTap: () {
-              Get.toNamed(
-                '/ProductDetailPage',
-                arguments: {
-                  'product': p,
-                  'heroTag': heroTag,
-                },
-              );
-            },
-
-          );
-        },
-      )
-
-      ],
+                return ReusableProductCard(
+                  image: p['image'],
+                  title: p['title'],
+                  price: p['price'],
+                  desc: p['desc'],
+                  rating: p['rating'],
+                  reviewCount: p['reviewCount'],
+                  heroTag: heroTag,
+                  onCardTap: () {
+                    Get.toNamed(
+                      '/ProductDetailPage',
+                      arguments: {'product': p, 'heroTag': heroTag},
+                    );
+                  },
+                  showCartButton: true,
+                  showRentButton: false,
+                );
+              },
+            ),
+          ],
         ),
       ),
     );
