@@ -4,6 +4,7 @@ import 'package:khetihar/Components/CustomButton.dart';
 import 'package:khetihar/Components/PhotoRow.dart';
 import '../../Components/Customerreviewcard.dart';
 import '../../Components/InputFields.dart';
+import '../../Components/SecondaryAppBar.dart';
 import '../../Theme/AppColors.dart';
 import '../../Theme/FontSize.dart';
 
@@ -19,7 +20,7 @@ class ProductDetailsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(title: Text(product['title'])),
+      appBar: Secondaryappbar(),
       body: ListView(
         children: [
           Hero(
@@ -197,6 +198,12 @@ class ProductDetailsPage extends StatelessWidget {
                   photos: [
                     'https://images.unsplash.com/photo-1503023345310-bd7c1de61c7d?auto=format&fit=crop&w=800&q=60',
                     'https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?auto=format&fit=crop&w=800&q=60',
+                    'https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?auto=format&fit=crop&w=800&q=60',
+                    'https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?auto=format&fit=crop&w=800&q=60',
+                    'https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?auto=format&fit=crop&w=800&q=60',
+                    'https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?auto=format&fit=crop&w=800&q=60',
+                    'https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?auto=format&fit=crop&w=800&q=60',
+                    'https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?auto=format&fit=crop&w=800&q=60',
                     'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=60',
                     'https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=800&q=60',
                     'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=800&q=60',
@@ -206,12 +213,90 @@ class ProductDetailsPage extends StatelessWidget {
                   borderRadius: 12,
                 ),
                 const SizedBox(height: 12),
-                CustomerReviewCard(
-                  reviewText:
-                      "The service was excellent and food was delicious!",
-                  date: "2 months ago",
-                  rating: 4.8,
+                // This goes inside your Column where you want to list short summary reviews.
+
+                InkWell(
+                  onTap: () {
+                    Get.toNamed('/all_reviews', arguments: {'product': product});
+                  },
+                  borderRadius: BorderRadius.circular(16),
+                  child: Card(
+                    color: Colors.white,
+                    margin: const EdgeInsets.symmetric(vertical: 8),
+                    elevation: 1,
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+                    child: Padding(
+                      padding: const EdgeInsets.all(14.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          // Top row: rating badge, date, stars
+                          Row(
+                            children: [
+                              Container(
+                                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                                decoration: BoxDecoration(
+                                  color: Colors.green,
+                                  borderRadius: BorderRadius.circular(12),
+                                ),
+                                child: Row(
+                                  children: [
+                                    Icon(Icons.star, size: 16, color: Colors.white),
+                                    const SizedBox(width: 2),
+                                    Text(
+                                      '4.8',
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 13,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              const SizedBox(width: 10),
+                              Text(
+                                "2 months ago",
+                                style: TextStyle(color: Colors.grey[700], fontSize: 13),
+                              ),
+                              const Spacer(),
+                              Row(
+                                children: List.generate(
+                                  5,
+                                      (idx) => Icon(
+                                    Icons.star,
+                                    size: 18,
+                                    color: idx < 4.8 ? Colors.amber : Colors.grey[300],
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 8),
+                          // Review text
+                          Text(
+                            "The service was excellent and food was delicious!",
+                            style: TextStyle(fontSize: tertiary(), color: Colors.black87),
+                          ),
+                          // const SizedBox(height: 12),
+                          // // Like/Dislike row (optional)
+                          // Row(
+                          //   children: [
+                          //     Icon(Icons.thumb_up, size: 18, color: Colors.grey[600]),
+                          //     const SizedBox(width: 2),
+                          //     Text("12", style: TextStyle(color: Colors.grey[600], fontSize: 14)),
+                          //     const SizedBox(width: 12),
+                          //     Icon(Icons.thumb_down, size: 18, color: Colors.grey[600]),
+                          //     const SizedBox(width: 2),
+                          //     Text("12", style: TextStyle(color: Colors.grey[600], fontSize: 14)),
+                          //   ],
+                          // ),
+                        ],
+                      ),
+                    ),
+                  ),
                 ),
+
               ],
             ),
           ),
