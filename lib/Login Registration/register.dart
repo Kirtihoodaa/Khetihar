@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_social_button/flutter_social_button.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:khetihar/Components/CustomButton.dart';
 import 'package:khetihar/Components/InputFields.dart';
 import 'package:khetihar/Theme/AppColors.dart';
 import 'package:khetihar/Theme/FontSize.dart';
 
+import 'Controllers/RegisterController.dart';
+
 class RegisterScreen extends StatelessWidget {
   RegisterScreen({super.key});
+  final registerC = Get.put(RegisterController());
 
   final _formKey = GlobalKey<FormState>();
-
   final TextEditingController nameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
@@ -50,10 +51,7 @@ class RegisterScreen extends StatelessWidget {
                         width: 36,
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
-                          border: Border.all(
-                            color: const Color.fromRGBO(232, 236, 244, 1),
-                            width: 2,
-                          ),
+                          border: Border.all(color: Colors.white, width: 2),
                         ),
                         child: IconButton(
                           padding: EdgeInsets.zero,
@@ -127,7 +125,6 @@ class RegisterScreen extends StatelessWidget {
                     ),
 
                     const SizedBox(height: 12),
-
                     CustomInputField(
                       labelText: "Enter your password",
                       controller: passwordController,
@@ -196,13 +193,47 @@ class RegisterScreen extends StatelessWidget {
 
                     const SizedBox(height: 20),
 
-                    CustomButton(
-                      text: "Register",
-                      foregroundColor: Colors.white,
-                      expand: true,
-                      onPressed: () {
-                        Get.toNamed('/otpVerification');
-                      },
+                    Obx(
+                      () => CustomButton(
+                        text:
+                            registerC.isLoading.value
+                                ? "Registering..."
+                                : "Register",
+                        foregroundColor: Colors.white,
+                        expand: true,
+                        onPressed:
+                            registerC.isLoading.value
+                                ? null
+                                : () async {
+                                  if (_formKey.currentState!.validate() &&
+                                      acceptTerms.value) {
+                                    final res = await registerC.registerUser(
+                                      name: nameController.text.trim(),
+                                      email: emailController.text.trim(),
+                                      password: passwordController.text.trim(),
+                                    );
+
+                                    if (res != null) {
+                                      // You have token + user info
+                                      print("User Token: ${res.token}");
+                                      print("User Name: ${res.user.name}");
+
+                                      Get.snackbar(
+                                        "Success",
+                                        "Welcome ${res.user.name}",
+                                      );
+                                      Get.toNamed(
+                                        '/login',
+                                      ); // 👈 or go to home
+                                    }
+                                  } else {
+                                    Get.snackbar(
+                                      "Validation",
+                                      "Please fill all fields and accept terms",
+                                    );
+                                  }
+                                },
+                      ),
                     ),
 
                     const SizedBox(height: 25),

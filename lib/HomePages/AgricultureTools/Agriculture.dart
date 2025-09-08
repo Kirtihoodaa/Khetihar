@@ -163,7 +163,7 @@ class AgricultureTools extends StatelessWidget {
                       heroTag: heroTag,
                       onCardTap: () {
                         Get.toNamed(
-                          '/ProductDetailPage',
+                          '/ProductDetailAgri',
                           arguments: {'product': p, 'heroTag': heroTag},
                         );
                       },
