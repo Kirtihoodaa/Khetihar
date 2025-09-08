@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:khetihar/AccountsAndSettings/Bookings/booking.dart';
 import 'package:khetihar/AccountsAndSettings/quick_action_grid.dart';
 import 'package:khetihar/AccountsAndSettings/rental/rental.dart';
 import 'package:khetihar/AccountsAndSettings/subscriptions/subscription.dart';
@@ -93,6 +94,9 @@ class Accounts extends StatelessWidget {
                         size: 22,
                         color: AppColors.green,
                       ),
+                      onTap: () {
+                        Get.to(() => Booking());
+                      },
                     ),
                   ],
                 ),
