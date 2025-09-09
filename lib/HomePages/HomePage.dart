@@ -5,6 +5,7 @@ import 'package:khetihar/Components/CustomAppBar.dart';
 import 'package:khetihar/HomePages/AgricultureTools/Agriculture.dart';
 import 'package:khetihar/HomePages/BuySeeds/BuySeeds.dart';
 import 'package:khetihar/HomePages/FretiliserAndPest/FertiliserAndPest.dart';
+import 'package:khetihar/MarketUpdates/market_update.dart';
 import 'package:khetihar/Theme/AppColors.dart';
 import 'package:khetihar/Components/CustomButton.dart';
 import 'package:khetihar/Theme/FontSize.dart';
@@ -116,6 +117,7 @@ class HomePage extends StatelessWidget {
                     icon: Icons.storefront_outlined,
                     label: 'Market Place',
                     color: AppColors.lightGreen,
+                    onTap: () => {Get.to(() => MarketUpdate())},
                   ),
                   _ServiceChip(
                     icon: Icons.badge_outlined,
@@ -380,6 +382,7 @@ class HomePage extends StatelessWidget {
 // ---------------- Register Banner ----------------
 class _RegisterBanner extends StatelessWidget {
   final VoidCallback onRegister;
+
   const _RegisterBanner({required this.onRegister});
 
   @override
@@ -510,6 +513,7 @@ class _ServiceChip extends StatelessWidget {
 class _SchemeCard extends StatelessWidget {
   final String title;
   final String subtitle;
+
   const _SchemeCard({required this.title, required this.subtitle});
 
   @override
