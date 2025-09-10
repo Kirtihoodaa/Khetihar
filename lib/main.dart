@@ -62,11 +62,10 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: theme,
       translations: AppTranslations(),
-      home: NewsScreen(),
       locale: initialLocale,
       fallbackLocale: const Locale('en', 'US'),
       getPages: allPages,
-      //initialRoute: '/',
+      initialRoute: '/',
 
       // initialRoute: SplashScreen.route,
       // getPages: [

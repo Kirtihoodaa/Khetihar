@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:khetihar/SoilHealth/main_page/soil_testing_report.dart';
 import '../../Theme/AppColors.dart';
 import '../../Theme/FontSize.dart';
 import '../main_page/upload_report.dart';
@@ -30,16 +31,19 @@ class SoilActionCardsExact extends StatelessWidget {
           ),
         ),
         const SizedBox(width: 40),
-        const _ActionCardExact(
-          title: "Request Testing",
-          subtitle: "Book a soil test from a nearby lab",
-          footerIcon: Icons.location_on_outlined,
-          footerText: "3 labs nearby",
-          accent: _AccentSpecExact(
-            ringColor: AppColors.green,
-            iconColor: AppColors.green,
-            softBg: Color(0x145C7814),
-            iconData: Icons.science_outlined,
+        GestureDetector(
+          onTap: () => Get.to(() => SoilTestingReport()),
+          child: const _ActionCardExact(
+            title: "Request Testing",
+            subtitle: "Book a soil test from a nearby lab",
+            footerIcon: Icons.location_on_outlined,
+            footerText: "3 labs nearby",
+            accent: _AccentSpecExact(
+              ringColor: AppColors.green,
+              iconColor: AppColors.green,
+              softBg: Color(0x145C7814),
+              iconData: Icons.science_outlined,
+            ),
           ),
         ),
       ],
