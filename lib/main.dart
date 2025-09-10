@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:khetihar/AccountsAndSettings/accounts.dart';
+import 'package:khetihar/NewTrends/news.dart';
 
 import 'package:khetihar/splash_setup/translations.dart';
 
@@ -61,10 +62,11 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: theme,
       translations: AppTranslations(),
+      home: NewsScreen(),
       locale: initialLocale,
       fallbackLocale: const Locale('en', 'US'),
       getPages: allPages,
-      initialRoute: '/',
+      //initialRoute: '/',
 
       // initialRoute: SplashScreen.route,
       // getPages: [

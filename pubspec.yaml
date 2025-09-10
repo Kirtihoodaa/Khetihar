@@ -45,6 +45,9 @@ dependencies:
   font_awesome_flutter: ^10.9.1
   dio: ^5.9.0
   flutter_secure_storage: ^9.2.4
+  fl_chart: ^0.69.0
+  just_audio: ^0.10.5
+  audio_video_progress_bar: ^2.0.3
 
 dev_dependencies:
   flutter_test:
@@ -73,6 +76,7 @@ flutter:
     - Assets/HomeScreens/
     - Assets/Seeds/
     - Assets/Accounts/
+    - Assets/NewsTrends/
   #   - images/a_dot_ham.jpeg
 flutter_native_splash:
   color: "#FFFFFF" # must match the start bg of in-app splash
