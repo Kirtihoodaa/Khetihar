@@ -6,6 +6,7 @@ import 'package:khetihar/Login%20Registration/book_field_date_time.dart';
 import 'package:khetihar/Login%20Registration/booking_detail_summary_card.dart';
 import 'package:khetihar/Login%20Registration/otp.dart';
 import 'package:khetihar/Login%20Registration/profile.dart';
+import 'package:khetihar/NewTrends/newTrendsRoutes.dart';
 import 'package:khetihar/splash_setup/language_screen.dart';
 import 'package:khetihar/splash_setup/splash_screen.dart';
 
@@ -92,4 +93,5 @@ final List<GetPage> allPages = [
   ),
   ...homepageroute,
   ...allAccountPages,
+  ...allnewsTrendsRoutes,
 ];
