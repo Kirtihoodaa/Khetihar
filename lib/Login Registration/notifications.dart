@@ -19,7 +19,7 @@ class NotificationsScreen extends StatelessWidget {
         bottom: false,
         child: Column(
           children: [
-            _NotificationsAppBar(title: 'Notifications', onBack: onBack),
+            NotificationsAppBar(title: 'Notifications', onBack: onBack),
             // Body
             Expanded(
               child: Container(
@@ -66,8 +66,8 @@ class NotificationsScreen extends StatelessWidget {
 
 // ---------------- Reusable header ----------------
 
-class _NotificationsAppBar extends StatelessWidget {
-  const _NotificationsAppBar({required this.title, this.onBack});
+class NotificationsAppBar extends StatelessWidget {
+  const NotificationsAppBar({super.key, required this.title, this.onBack});
 
   final String title;
   final VoidCallback? onBack;

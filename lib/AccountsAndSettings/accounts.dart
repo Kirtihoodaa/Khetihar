@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:khetihar/AccountsAndSettings/Bookings/booking.dart';
 import 'package:khetihar/AccountsAndSettings/quick_action_grid.dart';
 import 'package:khetihar/AccountsAndSettings/rental/rental.dart';
 import 'package:khetihar/AccountsAndSettings/subscriptions/subscription.dart';
+import 'package:khetihar/AccountsAndSettings/wishlist.dart';
 import 'package:khetihar/Components/CustomButton.dart';
 
 import '../Theme/AppColors.dart';
@@ -52,6 +54,9 @@ class Accounts extends StatelessWidget {
                         size: 22,
                         color: AppColors.green,
                       ),
+                      onTap: () {
+                        Get.to(() => Wishlist());
+                      },
                     ),
                     QuickActionItem(
                       label: 'Subscription',
@@ -93,6 +98,9 @@ class Accounts extends StatelessWidget {
                         size: 22,
                         color: AppColors.green,
                       ),
+                      onTap: () {
+                        Get.to(() => Booking());
+                      },
                     ),
                   ],
                 ),
