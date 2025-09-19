@@ -1,110 +1,35 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
 import 'package:khetihar/Components/SecondaryAppBar.dart';
 import 'package:khetihar/Components/GridView.dart';
 import 'package:khetihar/Components/ProductCard.dart';
+import 'package:khetihar/HomePages/BuySeeds/Controller/CategoryController.dart';
 import 'package:khetihar/Theme/AppColors.dart';
 import 'package:khetihar/Theme/FontSize.dart';
 
-class CategoryDetailPage extends StatefulWidget {
+class CategoryDetailPage extends GetView<CategoryController> {
+  CategoryDetailPage({super.key, required this.categoryName}) {
+    Get.put(CategoryController(categoryName), tag: categoryName);
+  }
+
   final String categoryName;
 
-  const CategoryDetailPage({super.key, required this.categoryName});
-
   @override
-  State<CategoryDetailPage> createState() => _CategoryDetailPageState();
-}
+  String? get tag => categoryName;
 
-class _CategoryDetailPageState extends State<CategoryDetailPage> {
-  final TextEditingController _search = TextEditingController();
-
-  late final List<Map<String, dynamic>> _allProducts;
-  List<Map<String, dynamic>> _visible = const [];
-
-  @override
-  void initState() {
-    super.initState();
-    _allProducts = _buildProductsFor(widget.categoryName);
-    _visible = _allProducts;
-    _search.addListener(_onQueryChanged);
-  }
-
-  @override
-  void dispose() {
-    _search.removeListener(_onQueryChanged);
-    _search.dispose();
-    super.dispose();
-  }
-
-  // ---------- DATA ----------
-  List<Map<String, dynamic>> _buildProductsFor(String category) {
-    final titles = switch (category) {
-      "Cereal Seeds" => ["Wheat", "Rice", "Maize", "Barley"],
-      "Vegetable Seeds" => ["Tomato", "Cucumber", "Brinjal", "Okra"],
-      "Oilseed Crops" => ["Mustard", "Groundnut", "Sunflower", "Soybean"],
-      "Fruit Seeds" => ["Apple", "Mango", "Banana", "Papaya"],
-      "Pulse Seeds" => ["Chickpea", "Moong", "Urad", "Arhar"],
-      "Spices & Medicinal" => ["Turmeric", "Ginger", "Chili", "Coriander"],
-      "Fibre Crops" => ["Cotton", "Jute", "Hemp", "Flax"],
-      "Fodder Crops" => ["Lucerne", "Bajra", "Jowar", "Cowpea"],
-      _ => ["Wheat", "Rice", "Maize", "Barley"],
-    };
-
-    final imageMap = {"Wheat": "Assets/Seeds/rice.png"};
-
-    String descFor(String name) => switch (name) {
-      "Wheat" => "Grow high-yield, disease-resistant ...",
-      "Rice" => "Cultivate rich, aromatic, and nutr...",
-      "Maize" => "Grow high-yield, disease-resistant ...",
-      "Barley" => "Cultivate rich, aromatic, and nutr...",
-
-      _ => "Premium, high-germination quality seeds...",
-    };
-
-    return titles
-        .map<Map<String, dynamic>>(
-          (t) => {
-            "image": imageMap[t] ?? "Assets/Seeds/rice.png",
-            "title": t,
-            "desc": descFor(t),
-            "price": "INR 120",
-            "rating": 4.4,
-            "reviewCount": 124,
-          },
-        )
-        .toList(growable: false);
-  }
-
-  // ---------- SEARCH ----------
-  void _onQueryChanged() {
-    final q = _search.text.trim().toLowerCase();
-    setState(() {
-      _visible =
-          q.isEmpty
-              ? _allProducts
-              : _allProducts
-                  .where(
-                    (p) =>
-                        p['title'].toString().toLowerCase().contains(q) ||
-                        p['desc'].toString().toLowerCase().contains(q),
-                  )
-                  .toList(growable: false);
-    });
-  }
-
-  // ---------- UI ----------
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: Secondaryappbar(),
-      body: SingleChildScrollView(
-        padding: EdgeInsets.all(10),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Container(
-              padding: EdgeInsets.symmetric(horizontal: 10),
+      body: ListView(
+        padding: const EdgeInsets.all(10),
+        children: [
+          // Search
+          Obx(
+            () => Container(
+              padding: const EdgeInsets.symmetric(horizontal: 10),
               decoration: BoxDecoration(
                 color: AppColors.secondarygrey,
                 borderRadius: BorderRadius.circular(28),
@@ -113,7 +38,9 @@ class _CategoryDetailPageState extends State<CategoryDetailPage> {
                 children: [
                   Expanded(
                     child: TextField(
-                      controller: _search,
+                      controller: controller.search,
+                      onChanged: controller.filter,
+                      textInputAction: TextInputAction.search,
                       decoration: InputDecoration(
                         hintText: "Search For Seeds",
                         hintStyle: TextStyle(
@@ -122,13 +49,13 @@ class _CategoryDetailPageState extends State<CategoryDetailPage> {
                         ),
                         border: InputBorder.none,
                         suffixIcon:
-                            _search.text.isNotEmpty
+                            controller.query.isNotEmpty
                                 ? IconButton(
                                   icon: const Icon(
                                     Icons.clear,
                                     color: Colors.grey,
                                   ),
-                                  onPressed: () => _search.clear(),
+                                  onPressed: controller.clearSearch,
                                 )
                                 : null,
                       ),
@@ -142,50 +69,66 @@ class _CategoryDetailPageState extends State<CategoryDetailPage> {
                 ],
               ),
             ),
-            const SizedBox(height: 20),
+          ),
+          const SizedBox(height: 20),
 
-            // Green Title
-            Text(
-              widget.categoryName,
-              style: TextStyle(
-                fontSize: primary(),
-                fontWeight: FontWeight.w600,
-                color: AppColors.green,
-              ),
+          // Title
+          Text(
+            categoryName,
+            style: TextStyle(
+              fontSize: primary(),
+              fontWeight: FontWeight.w600,
+              color: AppColors.green,
             ),
-            const SizedBox(height: 12),
+          ),
+          const SizedBox(height: 12),
 
-            // Products Grid (
-            ReusableGridView<Map<String, dynamic>>(
-              items: _visible,
-              crossAxisCount: 2,
-              crossAxisSpacing: 16,
-              mainAxisSpacing: 16,
-              childAspectRatio: 0.66,
-              itemBuilder: (context, p, i) {
-                final heroTag = '${p['id'] ?? p['title']}_$i';
-
-                return ReusableProductCard(
-                  image: p['image'],
-                  title: p['title'],
-                  price: p['price'],
-                  desc: p['desc'],
-                  rating: p['rating'],
-                  reviewCount: p['reviewCount'],
-                  heroTag: heroTag,
-                  onCardTap: () {
-                    Get.toNamed(
-                      '/ProductDetailPage',
-                      arguments: {'product': p, 'heroTag': heroTag},
-                    );
-                  },
-                  showCartButton: true,
-                  showRentButton: false,
-                );
-              },
-            ),
-          ],
-        ),
+          // Grid
+          Obx(
+            () =>
+                controller.visible.isEmpty
+                    ? Padding(
+                      padding: const EdgeInsets.only(top: 40.0),
+                      child: Center(
+                        child: Text(
+                          "No items found",
+                          style: TextStyle(
+                            fontSize: secondary(),
+                            color: Colors.black54,
+                          ),
+                        ),
+                      ),
+                    )
+                    : ReusableGridView<Map<String, dynamic>>(
+                      items: controller.visible,
+                      crossAxisCount: 2,
+                      crossAxisSpacing: 16,
+                      mainAxisSpacing: 16,
+                      childAspectRatio: 0.66,
+                      itemBuilder: (context, p, i) {
+                        final heroTag = '${p['id']}_${p['title']}_$i';
+                        return ReusableProductCard(
+                          image: p['image'],
+                          title: p['title'],
+                          price: "INR ${p['price']}",
+                          desc: p['desc'],
+                          rating: p['rating'],
+                          reviewCount: p['reviewCount'],
+                          heroTag: heroTag,
+                          onCardTap: () {
+                            Get.toNamed(
+                              '/ProductDetailPage',
+                              arguments: {'product': p, 'heroTag': heroTag},
+                            );
+                          },
+                          showCartButton: true,
+                          showRentButton: false,
+                          onCartTap: () => controller.addToCart(p),
+                        );
+                      },
+                    ),
+          ),
+        ],
       ),
     );
   }
