@@ -16,6 +16,7 @@ class ReusableProductCard extends StatefulWidget {
   // optional callbacks
   final ValueChanged<bool>? onAddedChanged;
   final ValueChanged<bool>? onFavoriteChanged;
+  final VoidCallback? onCartTap; 
 
   // flags
   final bool showFavorite;
@@ -38,6 +39,7 @@ class ReusableProductCard extends StatefulWidget {
     this.onCardTap,
     this.onAddedChanged,
     this.onFavoriteChanged,
+    this.onCartTap, // ✅
     this.showFavorite = true,
     this.showRating = true,
     this.showRentButton = true,
@@ -131,7 +133,7 @@ class _ReusableProductCardState extends State<ReusableProductCard> {
                     Row(
                       children: [
                         if (widget.showRating) _buildRatingSection(),
-                        Spacer(),
+                        const Spacer(),
                         if (widget.showRentButton) _buildRentButton(),
                         if (widget.showCartButton) _buildCartButton(),
                       ],
@@ -177,7 +179,7 @@ class _ReusableProductCardState extends State<ReusableProductCard> {
                 radius: 14,
                 backgroundColor: Colors.white.withOpacity(0.4),
                 child: Icon(
-                  _favorited ? Icons.favorite_rounded : Icons.favorite_rounded,
+                  Icons.favorite_rounded,
                   size: 20,
                   color: _favorited ? Colors.red : Colors.white,
                 ),
@@ -194,7 +196,8 @@ class _ReusableProductCardState extends State<ReusableProductCard> {
         const Icon(Icons.star, size: 16, color: Colors.amber),
         const SizedBox(width: 4),
         Text(
-          "${widget.rating ?? 4.4} ${widget.reviewCount != null ? '(${widget.reviewCount})' : '(124)'}",
+          "${widget.rating ?? 4.4} "
+          "${widget.reviewCount != null ? '(${widget.reviewCount})' : '(124)'}",
           style: TextStyle(fontSize: medium(), color: Colors.grey.shade700),
         ),
       ],
@@ -206,6 +209,7 @@ class _ReusableProductCardState extends State<ReusableProductCard> {
       onTap: () {
         setState(() => _added = !_added);
         widget.onAddedChanged?.call(_added);
+        widget.onCartTap?.call(); 
       },
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 160),
@@ -236,12 +240,12 @@ class _ReusableProductCardState extends State<ReusableProductCard> {
       },
       width: 80,
       height: 30,
-      variant: _isRented ? ButtonVariant.filled : ButtonVariant.filled,
+      variant: ButtonVariant.filled,
       backgroundColor: _isRented ? AppColors.green : AppColors.grey,
       foregroundColor: _isRented ? Colors.white : Colors.black,
       fontSize: medium(),
       radius: 40,
-      padding: EdgeInsets.symmetric(vertical: 4, horizontal: 10),
+      padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 10),
     );
   }
 }
