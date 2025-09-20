@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:khetihar/Theme/AppColors.dart';
 import 'package:khetihar/Theme/FontSize.dart';
 
-import '../Components/CustomButton.dart'; // <-- your custom button file
+import '../../Components/CustomButton.dart'; // <-- your custom button file
 
 class BookingConfirmedPage extends StatelessWidget {
   const BookingConfirmedPage({super.key});
