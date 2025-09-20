@@ -1,17 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:khetihar/HomePages/BuySeeds/Controller/CartController.dart';
+import 'package:khetihar/HomePages/BuySeeds/MyCart.dart';
 import 'package:khetihar/Theme/AppColors.dart';
 
 class Secondaryappbar extends StatelessWidget implements PreferredSizeWidget {
   final VoidCallback? onBack;
-  final VoidCallback? onCart;
   final VoidCallback? onAvatarTap;
 
-  const Secondaryappbar({
-    super.key,
-    this.onBack,
-    this.onCart,
-    this.onAvatarTap,
-  });
+  Secondaryappbar({super.key, this.onBack, this.onAvatarTap});
+
+  final CartController _cart = Get.put(CartController(), permanent: true);
 
   @override
   Size get preferredSize => const Size.fromHeight(64);
@@ -34,25 +33,37 @@ class Secondaryappbar extends StatelessWidget implements PreferredSizeWidget {
 
               const Spacer(),
 
-              // Cart with count badge
-              Stack(
-                clipBehavior: Clip.none,
-                children: [
-                  _PillIconButton(
-                    icon: Icons.shopping_cart_outlined,
-                    onTap: onCart,
-                  ),
-                  Positioned(right: -2, top: -2, child: _CartBadge(count: 2)),
-                ],
-              ),
+              // Cart with badge
+              Obx(() {
+                final count = _cart.totalQty;
+                return Stack(
+                  clipBehavior: Clip.none,
+                  children: [
+                    _PillIconButton(
+                      icon: Icons.shopping_cart_outlined,
+                      // ✅ Navigate to MyCartPage on tap
+                      onTap: () => Get.to(() => MyCartPage()),
+                    ),
+                    if (count > 0)
+                      Positioned(
+                        right: -2,
+                        top: -2,
+                        child: _CartBadge(count: count),
+                      ),
+                  ],
+                );
+              }),
+
               const SizedBox(width: 12),
 
               // Avatar
-              CircleAvatar(
-                radius: 22,
-                backgroundColor: Colors.white,
-                backgroundImage: const AssetImage(
-                  'Assets/HomeScreens/profile.png',
+              GestureDetector(
+                onTap: onAvatarTap,
+                child: const CircleAvatar(
+                  radius: 22,
+                  backgroundColor: Colors.white,
+                  backgroundImage:
+                      AssetImage('Assets/HomeScreens/profile.png'),
                 ),
               ),
             ],
@@ -77,11 +88,9 @@ class _PillIconButton extends StatelessWidget {
       child: InkWell(
         customBorder: const CircleBorder(),
         onTap: onTap,
-        child: Container(
+        child: SizedBox(
           width: 40,
           height: 40,
-          decoration: BoxDecoration(shape: BoxShape.circle),
-          alignment: Alignment.center,
           child: Icon(icon, size: 25, color: AppColors.green),
         ),
       ),
@@ -97,7 +106,7 @@ class _CartBadge extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 16,
-      padding: EdgeInsets.symmetric(horizontal: 5),
+      padding: const EdgeInsets.symmetric(horizontal: 5),
       decoration: BoxDecoration(
         color: AppColors.green,
         borderRadius: BorderRadius.circular(16),

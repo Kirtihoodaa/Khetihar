@@ -6,6 +6,7 @@ import 'package:khetihar/HomePages/AgricultureTools/Agriculture.dart';
 import 'package:khetihar/HomePages/BuySeeds/BuySeeds.dart';
 import 'package:khetihar/HomePages/FretiliserAndPest/FertiliserAndPest.dart';
 import 'package:khetihar/MarketUpdates/market_update.dart';
+import 'package:khetihar/SoilHealth/main_page/soil_health.dart';
 import 'package:khetihar/Theme/AppColors.dart';
 import 'package:khetihar/Components/CustomButton.dart';
 import 'package:khetihar/Theme/FontSize.dart';
@@ -102,6 +103,9 @@ class HomePage extends StatelessWidget {
                     icon: Icons.biotech_outlined,
                     label: 'Soil Health',
                     color: Color(0xFF9333EA),
+                    onTap: () {
+                      Get.to(() => SoilHealth());
+                    },
                   ),
                   _ServiceChip(
                     icon: Icons.wb_cloudy_outlined,
