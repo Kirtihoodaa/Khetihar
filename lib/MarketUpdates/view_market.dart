@@ -18,7 +18,7 @@ class ViewMarket extends StatelessWidget {
       appBar: KCenteredActionsAppBar(title: 'Market Analysis'),
       backgroundColor: Colors.white,
       body: Container(
-        padding: EdgeInsetsGeometry.symmetric(horizontal: 16, vertical: 12),
+        //padding: EdgeInsetsGeometry.symmetric(horizontal: 16, vertical: 12),
         child: Column(
           children: [
             SizedBox(height: 20),
@@ -73,7 +73,7 @@ class KDropdownFieldExact extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DropdownButtonFormField<String>(
-      padding: EdgeInsetsGeometry.symmetric(horizontal: 12),
+      //padding: EdgeInsetsGeometry.symmetric(horizontal: 12),
       value: value,
       onChanged: onChanged,
       icon: const Icon(

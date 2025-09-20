@@ -48,6 +48,7 @@ dependencies:
   fl_chart: ^0.69.0
   just_audio: ^0.10.5
   audio_video_progress_bar: ^2.0.3
+  table_calendar: ^3.2.0
 
 dev_dependencies:
   flutter_test:
@@ -77,6 +78,7 @@ flutter:
     - Assets/Seeds/
     - Assets/Accounts/
     - Assets/NewsTrends/
+    - Assets/Soil/
   #   - images/a_dot_ham.jpeg
 flutter_native_splash:
   color: "#FFFFFF" # must match the start bg of in-app splash
